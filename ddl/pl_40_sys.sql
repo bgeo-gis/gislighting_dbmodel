@@ -34,6 +34,11 @@ descript text
 --unique:   param_name,featurecat_id
 --fk:     cat_feature_id, data_type
 
+CREATE TABLE man_addfields_cat_datatype (
+id varchar(30) PRIMARY KEY,
+descript text
+);
+
 
 CREATE TABLE man_addfields_value (
 id bigserial PRIMARY KEY,

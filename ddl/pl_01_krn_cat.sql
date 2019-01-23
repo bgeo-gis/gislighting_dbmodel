@@ -14,6 +14,19 @@ active boolean,
 code_autofill boolean
 );
 
+CREATE TABLE sys_combo_cat(
+id serial NOT NULL,
+idval text,
+CONSTRAINT sys_combo_cat_pkey PRIMARY KEY (id)
+);
+--how does it work?
+CREATE TABLE sys_combo_values(
+sys_combo_cat_id integer NOT NULL,
+id integer NOT NULL,
+idval text,
+descript text, -- no en sys_combo_cat?
+CONSTRAINT sys_combo_pkey PRIMARY KEY (sys_combo_cat_id, id)
+);
 
 CREATE TABLE value_state (
 id int2 NOT NULL PRIMARY KEY, 

@@ -116,7 +116,6 @@ CREATE TABLE arc (
   publish boolean,
   inventory boolean,
   expl_id integer NOT NULL,
-  num_value numeric(12,3),
   feature_type character varying(16) DEFAULT 'ARC'::character varying,
   tstamp timestamp without time zone DEFAULT now()
 );
@@ -164,7 +163,6 @@ CREATE TABLE node (
   inventory boolean,
   hemisphere double precision,
   expl_id integer NOT NULL,
-  num_value numeric(12,3),
   feature_type character varying(16) DEFAULT 'NODE'::character varying,
   tstamp timestamp without time zone DEFAULT now()
 );
