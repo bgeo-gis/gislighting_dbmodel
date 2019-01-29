@@ -2,6 +2,25 @@
 SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 -- ----------------------------------
+-- Table: typevalue tables
+-- ----------------------------------
+CREATE TABLE sys_typevalue
+(id integer NOT NULL,
+ typevalue character varying(50) NOT NULL,
+ idval character varying(30),
+ descript text,
+ CONSTRAINT sys_typevalue_pkey PRIMARY KEY (typevalue, idval)
+);
+
+CREATE TABLE cat_addfields_typevalue
+(id integer NOT NULL,
+ typevalue character varying(50) NOT NULL,
+ idval character varying(30),
+ descript text,
+ CONSTRAINT cat_addfields_typevalue_pkey PRIMARY KEY (typevalue, idval)
+);
+
+-- ----------------------------------
 -- Table: Version
 -- ----------------------------------
 

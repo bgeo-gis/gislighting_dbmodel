@@ -15,14 +15,16 @@ CREATE SEQUENCE doc_seq
 
 
 CREATE TABLE doc_type (
-id varchar(30)   NOT NULL,
+id serial NOT NULL,
+idval varchar(30)   NOT NULL,
 comment varchar(512)  ,
 CONSTRAINT doc_type_pkey PRIMARY KEY (id)
 );
   
   
 CREATE TABLE doc (
-id varchar(30) DEFAULT nextval ('SCHEMA_NAME.doc_seq'::regclass) NOT NULL,
+id integer DEFAULT nextval ('SCHEMA_NAME.doc_seq'::regclass) NOT NULL,
+code varchar(30),
 doc_type varchar(30),
 path varchar(512),
 observ varchar(512),

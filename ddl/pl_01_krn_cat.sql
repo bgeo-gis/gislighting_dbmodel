@@ -3,7 +3,8 @@ SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 
 CREATE TABLE cat_feature (
-id character varying(30) NOT NULL,
+id serial PRIMARY KEY NOT NULL,
+idval character varying(30) NOT NULL,
 system_id character varying(30),
 type character varying(30),
 shortcut_key character varying(100),
@@ -19,7 +20,7 @@ id serial NOT NULL,
 idval text,
 CONSTRAINT sys_combo_cat_pkey PRIMARY KEY (id)
 );
---how does it work?
+
 CREATE TABLE sys_combo_values(
 sys_combo_cat_id integer NOT NULL,
 id integer NOT NULL,
@@ -30,20 +31,21 @@ CONSTRAINT sys_combo_pkey PRIMARY KEY (sys_combo_cat_id, id)
 
 CREATE TABLE value_state (
 id int2 NOT NULL PRIMARY KEY, 
-name varchar(30),
+idval varchar(30),
 observ text
 );
 
 CREATE TABLE value_state_type (
 id int2 NOT NULL PRIMARY KEY, 
 state_id int2,
-name varchar(30),
+idval varchar(30),
 is_operative boolean,
 is_doable boolean
 );
 
 CREATE TABLE value_verified (
-id varchar(30) NOT NULL PRIMARY KEY, 
+id serial NOT NULL PRIMARY KEY,
+idval varchar(30) NOT NULL,
 observ text
 );
 
@@ -74,9 +76,9 @@ CREATE INDEX dattrib_dattrib_type_index ON dattrib USING btree (dattrib_type);
 -- Table: Zones
 -- ----------------------------------
 CREATE TABLE exploitation(
-expl_id integer  NOT NULL PRIMARY KEY,
-name character varying(50),
-macroexpl_id integer,
+id integer  NOT NULL PRIMARY KEY,
+idval character varying(50),
+--macroexpl_id integer,
 descript text,
 undelete boolean,
 the_geom geometry(MULTIPOLYGON,SRID_VALUE),
@@ -92,8 +94,8 @@ username character varying(50)
 );
 
 CREATE TABLE dma (
-dma_id serial NOT NULL PRIMARY KEY,
-name character varying(30),
+id serial NOT NULL PRIMARY KEY,
+idval character varying(30),
 expl_id integer,
 --macrodma_id integer,
 descript text,
@@ -106,7 +108,8 @@ the_geom public.geometry (MULTIPOLYGON, SRID_VALUE)
 -- ----------------------------------
 
 CREATE TABLE cat_soil (
-id varchar(30)   NOT NULL,
+id serial NOT NULL,
+idval varchar(30)   NOT NULL,
 descript varchar(512),
 link varchar(512),
 y_param numeric(5,2),
@@ -121,7 +124,8 @@ CONSTRAINT cat_soil_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE cat_builder (
-id varchar(30)   NOT NULL,
+id serial NOT NULL,
+idval varchar(30)   NOT NULL,
 descript varchar(512)  ,
 link varchar(512)  ,
 CONSTRAINT cat_builder_pkey PRIMARY KEY (id)
@@ -129,7 +133,8 @@ CONSTRAINT cat_builder_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE cat_work (
-id varchar(30) NOT NULL,
+id serial NOT NULL,
+idval varchar(30) NOT NULL,
 descript varchar(512),
 link varchar(512),
 workid_key1 character varying(30),
@@ -140,7 +145,8 @@ CONSTRAINT cat_work_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE cat_owner (
-id varchar(30)   NOT NULL,
+id serial NOT NULL,
+idval varchar(30)   NOT NULL,
 descript varchar(512)  ,
 link varchar(512)  ,
 CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
@@ -149,7 +155,7 @@ CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
 
 CREATE TABLE man_type_category (
 id serial NOT NULL,
-category_type varchar(50),
+idval varchar(50),
 feature_type varchar(30),
 featurecat_id varchar(300),
 observ varchar(150),
@@ -159,7 +165,7 @@ CONSTRAINT man_type_category_pkey PRIMARY KEY (id)
 
 CREATE TABLE man_type_location (
 id serial NOT NULL,
-location_type varchar(50),
+idval varchar(50),
 feature_type varchar(30),
 featurecat_id varchar(300),
 observ varchar(150),

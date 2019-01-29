@@ -3,7 +3,8 @@ SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 
 CREATE TABLE element_type (
-id varchar(30) NOT NULL,
+id serial NOT NULL,
+idval varchar(30) NOT NULL,
 active boolean,
 code_autofill boolean,
 descript text,
@@ -13,7 +14,8 @@ CONSTRAINT element_type_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE cat_mat_element (
-id varchar(30),
+id serial NOT NULL,
+idval varchar(30),
 descript varchar(512),
 link varchar(512),
 CONSTRAINT cat_mat_element_pkey PRIMARY KEY (id)
@@ -21,7 +23,8 @@ CONSTRAINT cat_mat_element_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE cat_element (
-id varchar(30)   NOT NULL,
+id serial NOT NULL,
+idval varchar(30)   NOT NULL,
 elementtype_id varchar(30),
 matcat_id varchar(30),
 geometry varchar(30),
@@ -38,7 +41,7 @@ CONSTRAINT cat_element_pkey PRIMARY KEY (id)
 
 
 CREATE TABLE element (
-element_id varchar(16) PRIMARY KEY DEFAULT nextval('SCHEMA_NAME.urn_id_seq'::regclass),
+element_id integer PRIMARY KEY DEFAULT nextval('SCHEMA_NAME.urn_id_seq'::regclass),
 code varchar(30),
 elementcat_id varchar(30),
 serial_number varchar(30),

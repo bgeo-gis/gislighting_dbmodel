@@ -17,5 +17,5 @@ INSERT INTO value_state_type VALUES (5, 1, 'PROVISIONAL', false, true);
 
 -- Records of value_verified
 -- ----------------------------
-INSERT INTO "value_verified" VALUES ('PER REVISAR');
-INSERT INTO "value_verified" VALUES ('VERIFICAT');
+INSERT INTO "value_verified" (idval) VALUES ('PER REVISAR');
+INSERT INTO "value_verified" (idval) VALUES ('VERIFICAT');

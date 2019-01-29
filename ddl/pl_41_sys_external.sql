@@ -14,8 +14,8 @@ SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 -- Municipality
 CREATE TABLE ext_municipality (
-muni_id integer PRIMARY KEY,
-name text,
+id integer PRIMARY KEY,
+idval text,
 observ text,
 the_geom geometry(MULTIPOLYGON, SRID_VALUE)
 );
@@ -24,17 +24,18 @@ the_geom geometry(MULTIPOLYGON, SRID_VALUE)
 
 -- Streeter
 CREATE TABLE ext_type_street (
-id varchar(20) PRIMARY KEY NOT NULL,
+id integer PRIMARY KEY NOT NULL,
+idval varchar(20) NOT NULL,
 observ varchar(50)
 );
 
 
 
 CREATE TABLE ext_streetaxis (
-id varchar (16) PRIMARY KEY NOT NULL,
+id serial PRIMARY KEY NOT NULL,
+idval varchar (100) NOT NULL,
 code varchar (16),
-type varchar(18),
-name varchar(100),
+type_id integer,
 text text,
 the_geom public.geometry (MULTILINESTRING, SRID_VALUE),
 expl_id integer,
@@ -45,12 +46,12 @@ muni_id integer
 
 -- Postnumber
 CREATE TABLE ext_address(
-id character varying(16) PRIMARY KEY NOT NULL,
+id serial NOT NULL PRIMARY KEY,
+idval character varying(16) NOT NULL,
 muni_id integer,
 postcode character varying(16),
-streetaxis_id character varying(16),
-postnumber character varying(16),
-plot_id character varying(16),
+streetaxis_id integer,
+--postnumber character varying(16),
 the_geom geometry(Point,SRID_VALUE),
 expl_id integer
   );
