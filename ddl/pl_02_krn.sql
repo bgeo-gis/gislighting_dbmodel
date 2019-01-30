@@ -30,7 +30,7 @@ CONSTRAINT cat_mat_node_pkey PRIMARY KEY (id)
 CREATE TABLE cat_arc (
 id serial NOT NULL,
 idval varchar (30) NOT NULL,
-arctype_id varchar(30),
+cat_feature_id integer,
 matcat_id varchar(30)  ,
 pnom varchar(16)  ,
 dnom varchar(16)  ,
@@ -59,7 +59,7 @@ CONSTRAINT cat_arc_pkey PRIMARY KEY (id)
 CREATE TABLE cat_node (
 id serial NOT NULL,
 idval varchar (30) NOT NULL,
-nodetype_id varchar(30) ,
+cat_feature_id integer,
 matcat_id varchar(30)  ,
 pnom varchar(16)  ,
 dnom varchar(16)  ,

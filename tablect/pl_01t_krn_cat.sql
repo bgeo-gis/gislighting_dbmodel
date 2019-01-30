@@ -38,4 +38,7 @@ ALTER TABLE man_type_category ADD CONSTRAINT man_type_category_unique UNIQUE (ca
 
 ALTER TABLE man_type_location ADD CONSTRAINT man_type_location_feature_type_fkey FOREIGN KEY (feature_type) REFERENCES sys_feature_type (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE man_type_location ADD CONSTRAINT man_type_location_unique UNIQUE (location_type, feature_type);
- 
+--------------
+--new
+ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_type_check CHECK (type IN ('ARC', 'NODE'));
+ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (type IN ('REGISTER', 'COLUMN', 'LINE', 'LIGHTPOINT', 'PANELBOARD'));

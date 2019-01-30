@@ -6,7 +6,7 @@ CREATE TABLE cat_feature (
 id serial PRIMARY KEY NOT NULL,
 idval character varying(30) NOT NULL,
 system_id character varying(30),
-type character varying(30),
+feature_type character varying(30),
 shortcut_key character varying(100),
 parent_layer character varying(100),
 child_layer character varying(100),
