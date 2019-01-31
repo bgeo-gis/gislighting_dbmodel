@@ -67,10 +67,6 @@ INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent
 INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (4,'PUNT', 'LIGHTPOINT', 'NODE', 'P', 've_node', 've_node_punto_luz', NULL, true, NULL);
 INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (1,'QUADRE', 'PANELBOARD', 'NODE', 'Q', 've_node', 've_node_quadre', NULL, true, NULL);
 
-ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_type_check CHECK (feature_type IN ('ARC', 'NODE'));
-ALTER TABLE pl_test.cat_feature
-  ADD CONSTRAINT cat_feature_system_id_check CHECK (system_id::text = ANY (ARRAY['REGISTER'::character varying, 'LAMPPOST'::character varying, 'LINE'::character varying, 'LIGHTPOINT'::character varying, 'PANELBOARD'::character varying]::text[]));
-
 
 
 INSERT INTO cat_node VALUES (4, 'PUNT', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'u', NULL, NULL);
@@ -81,3 +77,8 @@ INSERT INTO cat_node VALUES (3, 'COLUMNA', 3, NULL, NULL, NULL, NULL, NULL, NULL
 
 INSERT INTO cat_arc VALUES (1, 'LINIA', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'm', NULL, NULL, NULL, NULL);
 
+INSERT INTO config_param_system VALUES (1, 'arc_searchnodes', '0.5', 'float', 'edit', NULL, NULL, NULL, 'Arc searchnodes buffer:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (2, 'arc_searchnodes_control', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Arc searchnodes control:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (3, 'samenode_init_end_control', 'false', 'boolean', 'edit', NULL, NULL, NULL, 'Arc same node init end control:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (5, 'state_topocontrol', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'State topocontrol:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (4, 'edit_topocontrol_dsbl_error', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Topocontrol error:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);

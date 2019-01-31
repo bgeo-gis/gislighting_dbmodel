@@ -41,4 +41,4 @@ ALTER TABLE man_type_location ADD CONSTRAINT man_type_location_unique UNIQUE (lo
 --------------
 --new
 ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_type_check CHECK (type IN ('ARC', 'NODE'));
-ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (type IN ('REGISTER', 'COLUMN', 'LINE', 'LIGHTPOINT', 'PANELBOARD'));
+ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (system_id IN ('REGISTER', 'LAMPPOST', 'LINE', 'LIGHTPOINT', 'PANELBOARD'));

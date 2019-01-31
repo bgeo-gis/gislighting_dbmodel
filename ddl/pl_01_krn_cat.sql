@@ -12,7 +12,8 @@ parent_layer character varying(100),
 child_layer character varying(100),
 orderby integer,
 active boolean,
-code_autofill boolean
+code_autofill boolean,
+topology_type integer
 );
 
 CREATE TABLE sys_combo_cat(
@@ -153,7 +154,7 @@ CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
 );
 
 
-CREATE TABLE man_type_category (
+CREATE TABLE cat_type_category (
 id serial NOT NULL,
 idval varchar(50),
 feature_type varchar(30),
@@ -163,7 +164,7 @@ CONSTRAINT man_type_category_pkey PRIMARY KEY (id)
 );
 
 
-CREATE TABLE man_type_location (
+CREATE TABLE cat_type_location (
 id serial NOT NULL,
 idval varchar(50),
 feature_type varchar(30),

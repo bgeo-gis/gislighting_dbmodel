@@ -41,8 +41,8 @@ epsg int4
 -- ----------------------------------
 CREATE TABLE man_addfields_parameter (
 id serial PRIMARY KEY,
-param_name varchar(50) NOT NULL,
-cat_feature_id varchar (30),
+idval varchar(50) NOT NULL,
+cat_feature_id integer,
 datatype text NOT NULL,
 field_length integer,
 num_decimals integer,
@@ -61,7 +61,7 @@ descript text
 
 CREATE TABLE man_addfields_value (
 id bigserial PRIMARY KEY,
-feature_id varchar(16),
+feature_id integer,
 parameter_id integer,
 value_param text
 );
@@ -199,4 +199,15 @@ CREATE TABLE audit_cat_table(
   sys_sequence text,
   sys_sequence_field text,
   isdeprecated boolean DEFAULT false
+);
+
+CREATE TABLE audit_log_data (
+  id serial NOT NULL PRIMARY KEY,
+  fprocesscat_id smallint,
+  feature_type varchar(16),
+  feature_id varchar(16),
+  enabled boolean,
+  log_message text,
+  tstamp timestamp without time zone DEFAULT now(),
+  user_name text DEFAULT "current_user"()
 );

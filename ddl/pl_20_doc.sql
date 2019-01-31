@@ -25,7 +25,7 @@ CONSTRAINT doc_type_pkey PRIMARY KEY (id)
 CREATE TABLE doc (
 id integer DEFAULT nextval ('SCHEMA_NAME.doc_seq'::regclass) NOT NULL,
 code varchar(30),
-doc_type varchar(30),
+doc_type integer,
 path varchar(512),
 observ varchar(512),
 date timestamp(6) DEFAULT now(),
@@ -37,21 +37,21 @@ CONSTRAINT doc_pkey PRIMARY KEY (id)
 
 CREATE TABLE doc_x_node (
 id serial NOT NULL PRIMARY KEY,
-doc_id varchar(30),
-node_id varchar(16)
+doc_id integer,
+node_id integer
 );
 
 
 CREATE TABLE doc_x_arc (
 id serial NOT NULL PRIMARY KEY,
-doc_id varchar(30),
-arc_id varchar(16)
+doc_id integer,
+arc_id integer
 );
 
 
 CREATE TABLE doc_x_visit(
 id serial NOT NULL PRIMARY KEY,
-doc_id character varying(30),
+doc_id integer,
 visit_id integer 
 );
 
