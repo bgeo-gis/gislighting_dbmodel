@@ -1,25 +1,6 @@
 
 SET search_path = "SCHEMA_NAME", public, pg_catalog;
 
-INSERT INTO om_visit_parameter_type (id) VALUES ('INSPECCIO');
-INSERT INTO om_visit_parameter_type (id) VALUES ('ACTUACIO');
-
-
---doc
-
-INSERT INTO doc_type (idval) VALUES ('AS_BUILT');
-INSERT INTO doc_type (idval) VALUES ('INCIDENT');
-INSERT INTO doc_type (idval) VALUES ('RELACIO DE TREBALL');
-INSERT INTO doc_type (idval) VALUES ('ALTRES');
-INSERT INTO doc_type (idval) VALUES ('FOTO');
-
-
-INSERT INTO man_addfields_cat_datatype VALUES ('integer', NULL);
-INSERT INTO man_addfields_cat_datatype VALUES ('text', NULL);
-INSERT INTO man_addfields_cat_datatype VALUES ('date', NULL);
-INSERT INTO man_addfields_cat_datatype VALUES ('boolean', NULL);
-INSERT INTO man_addfields_cat_datatype VALUES ('numeric', NULL);
-
 
 INSERT INTO man_addfields_parameter VALUES (14, 'lamppost', '4', 'text', 16, NULL, false, NULL, 'columna');
 INSERT INTO man_addfields_parameter VALUES (13, 'line', '4', 'text', 16, NULL, false, NULL, 'línia');
@@ -62,10 +43,10 @@ INSERT INTO man_addfields_parameter VALUES (15, 'light_number', '4', 'integer', 
 
 
 INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (2, 'ARQUETA', 'REGISTER', 'NODE', 'R', 've_node', 've_node_arqueta', NULL, true, NULL);
-INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (3, 'COLUMNA', 'LAMPPOST', 'NODE', 'C', 've_node', 've_node_columna', NULL, true, NULL);
-INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (5, 'LINIA', 'LINE', 'ARC', 'L', 've_node', 've_arc_linia', NULL, true, NULL);
+INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (3, 'COLUMNA', 'LAMPPOST', 'NODE', 'C', 've_node', 've_node_columna', NULL, true, 1);
+INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (5, 'LINIA', 'LINE', 'ARC', 'L', 've_arc', 've_arc_linia', NULL, true, 1);
 INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (4,'PUNT', 'LIGHTPOINT', 'NODE', 'P', 've_node', 've_node_punto_luz', NULL, true, NULL);
-INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (1,'QUADRE', 'PANELBOARD', 'NODE', 'Q', 've_node', 've_node_quadre', NULL, true, NULL);
+INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (1,'QUADRE', 'PANELBOARD', 'NODE', 'Q', 've_node', 've_node_quadre', NULL, true, 1);
 
 
 
@@ -75,10 +56,42 @@ INSERT INTO cat_node VALUES (2, 'ARQUETA', 2, NULL, NULL, NULL, NULL, NULL, NULL
 INSERT INTO cat_node VALUES (3, 'COLUMNA', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'u', NULL, NULL);
 
 
-INSERT INTO cat_arc VALUES (1, 'LINIA', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'm', NULL, NULL, NULL, NULL);
+INSERT INTO cat_arc VALUES (1, 'LINIA', 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'm', NULL, NULL, NULL, NULL);
 
-INSERT INTO config_param_system VALUES (1, 'arc_searchnodes', '0.5', 'float', 'edit', NULL, NULL, NULL, 'Arc searchnodes buffer:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (2, 'arc_searchnodes_control', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Arc searchnodes control:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (3, 'samenode_init_end_control', 'false', 'boolean', 'edit', NULL, NULL, NULL, 'Arc same node init end control:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (5, 'state_topocontrol', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'State topocontrol:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (4, 'edit_topocontrol_dsbl_error', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Topocontrol error:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO exploitation VALUES (1, 'expl1', NULL, true, '0106000020E76400000100000001030000000100000005000000947C5CBD6FF319416C5659F22F89514178A0E03EFC201A41168A209F9B8A514182FF6B367D3A1A41FCFA088532885141251F5717A5081A4168ECB769C5865141947C5CBD6FF319416C5659F22F895141');
+
+INSERT INTO dma VALUES (1, 'dma1', 1, NULL, NULL, '0106000020E76400000100000001030000000100000005000000947C5CBD6FF319416C5659F22F89514178A0E03EFC201A41168A209F9B8A514182FF6B367D3A1A41FCFA088532885141251F5717A5081A4168ECB769C5865141947C5CBD6FF319416C5659F22F895141');
+
+INSERT INTO ext_municipality VALUES (1, 'muni1', NULL, '0106000020E76400000100000001030000000100000005000000947C5CBD6FF319416C5659F22F89514178A0E03EFC201A41168A209F9B8A514182FF6B367D3A1A41FCFA088532885141251F5717A5081A4168ECB769C5865141947C5CBD6FF319416C5659F22F895141');
+
+INSERT INTO cat_type_location VALUES (1, 'soterrada', 5, 'ARC', NULL);
+INSERT INTO cat_type_location VALUES (2, 'aèria', 5, 'ARC', NULL);
+
+INSERT INTO selector_state (1,'postgres');
+
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('intermittent_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Làmpada intermitent', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Làmpada trencada', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('burned_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Làmpada esgotada', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('lock_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Pany', 'event_standard', NULL, NULL, 'QUADRE - EXT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('defected_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Defecte en la làmpada', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('hinge_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Frontissa', 'event_standard', NULL, NULL, 'QUADRE - EXT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('burned_line', NULL, 'INSPECCIO', 'ARC', 'TEXT', NULL, 'Cremada', 'event_standard', NULL, NULL, 'LINIA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('rodent_line', NULL, 'INSPECCIO', 'ARC', 'TEXT', NULL, 'Rosegador', 'event_standard', NULL, NULL, 'LINIA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('cut_line', NULL, 'INSPECCIO', 'ARC', 'TEXT', NULL, 'Tall o pessic', 'event_standard', NULL, NULL, 'LINIA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('deterioration_col', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Deteriorament', 'event_standard', NULL, NULL, 'COLUMNA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('hit_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Colpejat', 'event_standard', NULL, NULL, 'QUADRE - EXT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('corrosion_col', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Corrosió en la base', 'event_standard', NULL, NULL, 'COLUMNA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('hit_accident_col', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Colpejat accident', 'event_standard', NULL, NULL, 'COLUMNA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('lack_cover_reg', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Falta tapa', 'event_standard', NULL, NULL, 'ARQUETA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('loose_frame_reg', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Marc solt', 'event_standard', NULL, NULL, 'ARQUETA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_cover_reg', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Tapa trencada', 'event_standard', NULL, NULL, 'ARQUETA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('magnetothermic_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Pia', 'event_standard', NULL, NULL, 'QUADRE - INT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('diferential_switch_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Diferencial', 'event_standard', NULL, NULL, 'QUADRE - INT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('clock_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Rellotge', 'event_standard', NULL, NULL, 'QUADRE - INT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('contactor_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Contactor', 'event_standard', NULL, NULL, 'QUADRE - INT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('deterioration_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Deteriorament', 'event_standard', NULL, NULL, 'QUADRE - EXT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_door_pb', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Tapa/porta trencada', 'event_standard', NULL, NULL, 'QUADRE - EXT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('deterioration_line', NULL, 'INSPECCIO', 'ARC', 'TEXT', NULL, 'Deteriorament', 'event_standard', NULL, NULL, 'LINIA');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('deterioration_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Deteriorament', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Trencament', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('out-of-order_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'No funciona', 'event_standard', NULL, NULL, 'PUNT');

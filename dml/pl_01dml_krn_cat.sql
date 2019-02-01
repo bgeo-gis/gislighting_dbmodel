@@ -19,3 +19,15 @@ INSERT INTO value_state_type VALUES (5, 1, 'PROVISIONAL', false, true);
 -- ----------------------------
 INSERT INTO "value_verified" (idval) VALUES ('PER REVISAR');
 INSERT INTO "value_verified" (idval) VALUES ('VERIFICAT');
+
+--doc
+INSERT INTO doc_type (idval) VALUES ('AS_BUILT');
+INSERT INTO doc_type (idval) VALUES ('INCIDENT');
+INSERT INTO doc_type (idval) VALUES ('RELACIO DE TREBALL');
+INSERT INTO doc_type (idval) VALUES ('ALTRES');
+INSERT INTO doc_type (idval) VALUES ('FOTO');
+
+--om
+
+INSERT INTO om_visit_parameter_type (id) VALUES ('INSPECCIO');
+INSERT INTO om_visit_parameter_type (id) VALUES ('ACTUACIO');

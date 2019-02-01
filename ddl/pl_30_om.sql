@@ -3,7 +3,7 @@ SET search_path = "SCHEMA_NAME", public, pg_catalog;
 
 
 CREATE TABLE om_visit_cat (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     name character varying(30),
     startdate date DEFAULT now(),
     enddate date,
@@ -15,7 +15,7 @@ CREATE TABLE om_visit_cat (
 
 
 CREATE TABLE om_visit_class (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     idval character varying(30),
     descript text,
     active boolean DEFAULT true,
@@ -27,7 +27,7 @@ CREATE TABLE om_visit_class (
 
 
 CREATE TABLE om_visit_class_x_parameter (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     class_id integer NOT NULL,
     parameter_id character varying(50) NOT NULL
 );
@@ -35,7 +35,7 @@ CREATE TABLE om_visit_class_x_parameter (
 
 
 CREATE TABLE om_visit (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     visitcat_id integer NOT NULL,
     ext_code character varying(30),
     startdate timestamp(6) without time zone DEFAULT now(),
@@ -55,7 +55,7 @@ CREATE TABLE om_visit (
 
 
 CREATE TABLE om_visit_event (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     event_code character varying(16),
     visit_id bigint NOT NULL,
     position_id character varying(50),
@@ -77,7 +77,7 @@ CREATE TABLE om_visit_event (
 );
 
 CREATE TABLE om_visit_event_photo (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
     event_id bigint NOT NULL,
     tstamp timestamp(6) without time zone DEFAULT now(),
@@ -89,7 +89,7 @@ CREATE TABLE om_visit_event_photo (
 
 
 CREATE TABLE om_visit_file (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
     filetype character varying(30),
     hash text,
@@ -108,7 +108,7 @@ CREATE TABLE om_visit_filetype_x_extension (
 
 
 CREATE TABLE om_visit_lot (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     idval character varying(30),
     startdate date DEFAULT now(),
     enddate date,
@@ -145,7 +145,7 @@ CREATE TABLE om_visit_parameter_form_type (
 
 
 CREATE TABLE om_visit_parameter (
-    id character varying(50) NOT NULL,
+    id character varying(50) NOT NULL PRIMARY KEY,
     code character varying(30),
     parameter_type character varying(30) NOT NULL,
     feature_type character varying(30) NOT NULL,
@@ -160,14 +160,14 @@ CREATE TABLE om_visit_parameter (
 
 
 CREATE TABLE om_visit_parameter_type (
-    id character varying(30) NOT NULL,
+    id character varying(30) NOT NULL PRIMARY KEY,
     descript text,
     go2plan boolean
 );
 
 
 CREATE TABLE om_visit_parameter_index (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     parameter_id character varying(50),
     numval_from double precision,
     numval_to double precision,
@@ -177,13 +177,13 @@ CREATE TABLE om_visit_parameter_index (
 );
 
 CREATE TABLE om_visit_parameter_cat_action (
-    id serial NOT NULL,
+    id serial NOT NULL PRIMARY KEY,
     action_name text
 );
 
 
 CREATE TABLE om_visit_parameter_x_parameter ( --pxp_id o id?
-    pxp_id bigserial NOT NULL,
+    pxp_id bigserial NOT NULL PRIMARY KEY,
     parameter_id1 character varying(50),
     parameter_id2 character varying(50),
     action_type integer,
@@ -200,20 +200,20 @@ CREATE TABLE om_visit_typevalue ( -- orden de los campos??
 
 
 CREATE TABLE om_visit_value_criticity (
-    id smallint NOT NULL,
+    id smallint NOT NULL PRIMARY KEY,
     descript text
 );
 
 
 CREATE TABLE om_visit_x_arc (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
     arc_id character varying(16) NOT NULL,
     is_last boolean DEFAULT true
 );
 
 CREATE TABLE om_visit_x_node (
-    id bigserial NOT NULL,
+    id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
     node_id character varying(16) NOT NULL,
     is_last boolean DEFAULT true

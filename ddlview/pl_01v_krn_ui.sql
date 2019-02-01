@@ -12,8 +12,8 @@ CREATE OR REPLACE VIEW v_ui_node AS
     node.observ,
     dma.idval as dma,
     cat_soil.idval as soil,
-    cat_location_type.idval as location_type,
-    cat_category_type.idval as category_type,
+    cat_type_location.idval as location_type,
+    cat_type_category.idval as category_type,
     cat_work.idval as workcat,
     cat_work_end.idval as workcat_end,
     cat_builder.idval as buildercat,
@@ -50,8 +50,8 @@ CREATE OR REPLACE VIEW v_ui_node AS
      LEFT JOIN value_state_type ON value_state_type.id=node.state_type_id
      LEFT JOIN dma ON dma.id=node.dma_id
      LEFT JOIN cat_soil ON  cat_soil.id=node.soilcat_id
-     LEFT JOIN cat_location_type ON  cat_location_type.id = node.location_type_id
-     LEFT JOIN cat_category_type ON  cat_category_type.id=node.category_type_id
+     LEFT JOIN cat_type_location ON  cat_type_location.id = node.location_type_id
+     LEFT JOIN cat_type_category ON  cat_type_category.id=node.category_type_id
      LEFT JOIN cat_work ON cat_work.id = workcat_id
      LEFT JOIN cat_work as cat_work_end ON cat_work_end.id = workcat_id_end
      LEFT JOIN cat_builder ON cat_builder.id=node.buildercat_id
@@ -80,8 +80,8 @@ CREATE OR REPLACE VIEW v_ui_arc AS
     custom_length,
     dma.idval as dma,
     cat_soil.idval as soil,
-    cat_location_type.idval as location_type,
-    cat_category_type.idval as category_type,
+    cat_type_location.idval as location_type,
+    cat_type_category.idval as category_type,
     cat_work.idval as workcat,
     cat_work_end.idval as workcat_end,
     cat_builder.idval as buildercat,
@@ -117,8 +117,8 @@ CREATE OR REPLACE VIEW v_ui_arc AS
      LEFT JOIN value_state_type ON value_state_type.id=arc.state_type_id
      LEFT JOIN dma ON dma.id=arc.dma_id
      LEFT JOIN cat_soil ON  cat_soil.id=arc.soilcat_id
-     LEFT JOIN cat_location_type ON  cat_location_type.id = arc.location_type_id
-     LEFT JOIN cat_category_type ON  cat_category_type.id=arc.category_type_id
+     LEFT JOIN cat_type_location ON  cat_type_location.id = arc.location_type_id
+     LEFT JOIN cat_type_category ON  cat_type_category.id=arc.category_type_id
      LEFT JOIN cat_work ON cat_work.id = workcat_id
      LEFT JOIN cat_work as cat_work_end ON cat_work_end.id = workcat_id_end
      LEFT JOIN cat_builder ON cat_builder.id=arc.buildercat_id

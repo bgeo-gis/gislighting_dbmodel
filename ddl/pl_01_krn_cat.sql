@@ -73,6 +73,9 @@ CREATE INDEX dattrib_feature_id_index ON dattrib USING btree (feature_id COLLATE
 
 CREATE INDEX dattrib_dattrib_type_index ON dattrib USING btree (dattrib_type);
 
+CREATE TABLE cat_user(
+id varchar(50) PRIMARY KEY NOT NULL
+);
 -- ----------------------------------
 -- Table: Zones
 -- ----------------------------------
@@ -157,19 +160,19 @@ CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
 CREATE TABLE cat_type_category (
 id serial NOT NULL,
 idval varchar(50),
+featurecat_id integer,
 feature_type varchar(30),
-featurecat_id varchar(300),
 observ varchar(150),
-CONSTRAINT man_type_category_pkey PRIMARY KEY (id)
+CONSTRAINT cat_type_category_pkey PRIMARY KEY (id)
 );
 
 
 CREATE TABLE cat_type_location (
 id serial NOT NULL,
 idval varchar(50),
+featurecat_id integer,
 feature_type varchar(30),
-featurecat_id varchar(300),
 observ varchar(150),
-CONSTRAINT man_type_location_pkey PRIMARY KEY (id)
+CONSTRAINT cat_type_location_pkey PRIMARY KEY (id)
 );
 

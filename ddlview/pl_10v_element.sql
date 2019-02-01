@@ -7,7 +7,8 @@
 	  WHERE element.state_id = selector_state.state_id AND selector_state.cur_user = "current_user"()::text;
 
 	DROP VIEW IF EXISTS ve_element CASCADE;
-	SET search_path = "pl_test", public, pg_catalog;
+
+	SET search_path = "SCHEMA_NAME", public, pg_catalog;
 
 
 	DROP VIEW IF EXISTS ve_element CASCADE;
@@ -105,8 +106,8 @@
 	elementcat_id,
 	serial_number,
 	num_elements ,
-	state,
-	state_type,
+	state_id,
+	state_type_id,
 	observ ,
 	comment ,
 	category_type_id ,

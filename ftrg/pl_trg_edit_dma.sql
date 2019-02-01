@@ -9,7 +9,7 @@ This version of Giswater is provided by Giswater Association
 
 -- DROP FUNCTION "SCHEMA_idval".pl_trg_edit_man_arc();
 
-CREATE OR REPLACE FUNCTION "SCHEMA_idval".pl_trg_edit_dma()
+CREATE OR REPLACE FUNCTION "SCHEMA_NAME".pl_trg_edit_dma()
   RETURNS trigger AS
 $BODY$
 DECLARE 

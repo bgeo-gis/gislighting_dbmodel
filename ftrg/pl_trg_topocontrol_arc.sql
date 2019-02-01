@@ -44,7 +44,7 @@ BEGIN
 		JOIN cat_feature ON cat_feature.id = cat_node.cat_feature_id 
 		WHERE ST_DWithin(ST_endpoint(NEW.the_geom), node.the_geom, arc_searchnodes_aux) AND topology_type=1
 		ORDER BY ST_Distance(node.the_geom, ST_endpoint(NEW.the_geom)) LIMIT 1;
-   
+   raise notice 'arc,1,2,%,%,%', NEW.arc_id, nodeRecord1,nodeRecord2;
     
     ELSIF state_topocontrol_bool IS TRUE THEN
 
@@ -52,7 +52,7 @@ BEGIN
 	--PERFORM gw_fct_state_control('ARC', NEW.arc_id, NEW.state, TG_OP);
 
 	-- Lookig for state=0
-	IF NEW.state=0 THEN
+	IF NEW.state_id=0 THEN
 		RETURN NEW;
         END IF;
 	
@@ -62,44 +62,14 @@ BEGIN
 		SELECT * INTO nodeRecord1 FROM node JOIN cat_node ON cat_node.id=nodecat_id
 			JOIN cat_feature ON cat_feature.id = cat_node.cat_feature_id 
 			WHERE ST_DWithin(ST_startpoint(NEW.the_geom), node.the_geom, arc_searchnodes_aux) AND topology_type=1
-			AND (NEW.state=1 AND node.state=1)
-		
-				/*	-- looking for existing nodes that not belongs on the same alternatives that arc
-					OR (NEW.state=2 AND v_edit_node.state=1 AND node_id NOT IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=0 AND psector_id=
-							(SELECT value::integer FROM config_param_user 
-							WHERE parameter='psector_vdefault' AND cur_user="current_user"() LIMIT 1)))
-					
-					-- looking for planified nodes that belongs on the same alternatives that arc
-					OR (NEW.state=2 AND v_edit_node.state=2 AND node_id IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=1 AND psector_id=
-							(SELECT value::integer FROM config_param_user 
-							WHERE parameter='psector_vdefault' AND cur_user="current_user"() LIMIT 1))) */
-
+			AND (NEW.state_id=1 AND node.state_id=1)
 		ORDER BY ST_Distance(node.the_geom, ST_startpoint(NEW.the_geom)) LIMIT 1;
 
 	
 		SELECT * INTO nodeRecord2 FROM node JOIN cat_node ON cat_node.id=nodecat_id
 			JOIN cat_feature ON cat_feature.id = cat_node.cat_feature_id 
 			WHERE ST_DWithin(ST_endpoint(NEW.the_geom), node.the_geom, arc_searchnodes_aux) AND topology_type=1
-			AND (NEW.state=1 AND node.state=1)
-
-					-- looking for existing nodes that not belongs on the same alternatives that arc
-				/*	OR (NEW.state=2 AND v_edit_node.state=1 AND node_id NOT IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=0 AND psector_id=
-							(SELECT value::integer FROM config_param_user 
-							WHERE parameter='psector_vdefault' AND cur_user="current_user"() LIMIT 1)))
-					
-					-- looking for planified nodes that belongs on the same alternatives that arc
-					OR (NEW.state=2 AND v_edit_node.state=2 AND node_id IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=1 AND psector_id=
-							(SELECT value::integer FROM config_param_user 
-							WHERE parameter='psector_vdefault' AND cur_user="current_user"() LIMIT 1)))*/
-
+			AND (NEW.state_id=1 AND node.state_id=1)
 		ORDER BY ST_Distance(node.the_geom, ST_endpoint(NEW.the_geom)) LIMIT 1;
 
 	ELSIF TG_OP='UPDATE' THEN
@@ -108,42 +78,14 @@ BEGIN
 		SELECT * INTO nodeRecord1 FROM node JOIN cat_node ON cat_node.id=nodecat_id
 			JOIN cat_feature ON cat_feature.id = cat_node.cat_feature_id 
 			WHERE ST_DWithin(ST_startpoint(NEW.the_geom), node.the_geom, arc_searchnodes_aux) AND topology_type=1
-			AND (NEW.state=1 AND node.state=1)
-					-- looking for existing nodes that not belongs on the same alternatives that arc
-				/*	OR (NEW.state=2 AND v_edit_node.state=1 AND node_id NOT IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=0 AND psector_id IN 
-							(SELECT psector_id FROM plan_psector_x_arc WHERE arc_id=NEW.arc_id)))
-							
-
-					-- looking for planified nodes that belongs on the same alternatives that arc
-					OR (NEW.state=2 AND v_edit_node.state=2 AND node_id IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=1 AND psector_id IN
-							(SELECT psector_id FROM plan_psector_x_arc WHERE arc_id=NEW.arc_id)))*/
-
+			AND (NEW.state_id=1 AND node.state_id=1)
 		ORDER BY ST_Distance(node.the_geom, ST_startpoint(NEW.the_geom)) LIMIT 1;
 
 	
 		SELECT * INTO nodeRecord2 FROM node JOIN cat_node ON cat_node.id=nodecat_id
 			JOIN cat_feature ON cat_feature.id = cat_node.cat_feature_id 
 			WHERE ST_DWithin(ST_endpoint(NEW.the_geom), node.the_geom, arc_searchnodes_aux) AND topology_type=1
-			AND (NEW.state=1 AND node.state=1)
-
-					-- looking for existing nodes that not belongs on the same alternatives that arc
-
-				/*	OR (NEW.state=2 AND v_edit_node.state=1 AND node_id NOT IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=0 AND psector_id IN 
-							(SELECT psector_id FROM plan_psector_x_arc WHERE arc_id=NEW.arc_id)))
-							
-
-					-- looking for planified nodes that belongs on the same alternatives that arc
-					OR (NEW.state=2 AND v_edit_node.state=2 AND node_id IN 
-						(SELECT node_id FROM plan_psector_x_node 
-						 WHERE plan_psector_x_node.node_id=v_edit_node.node_id AND state=1 AND psector_id IN
-							(SELECT psector_id FROM plan_psector_x_arc WHERE arc_id=NEW.arc_id)))*/
-
+			AND (NEW.state_id=1 AND node.state_id=1)
 		ORDER BY ST_Distance(node.the_geom, ST_endpoint(NEW.the_geom)) LIMIT 1;
 
 	END IF;
@@ -173,29 +115,6 @@ BEGIN
 				RETURN NEW;
 			END IF;
 
--- Check auto insert end nodes
-		/*ELSIF (nodeRecord1.node_id IS NOT NULL) AND (nodeRecord2.node_id IS NULL) AND (SELECT nodeinsert_arcendpoint FROM config) THEN
-			IF TG_OP = 'INSERT' THEN
-
-			INSERT INTO node (node_id, sector_id, epa_type, nodecat_id, dma_id, the_geom) 
-				VALUES (
-                (SELECT nextval('urn_id_seq')),
-                (SELECT sector_id FROM sector WHERE (ST_endpoint(NEW.the_geom) @ sector.the_geom) LIMIT 1), 
-				'JUNCTION'::text,
-				(SELECT "value" FROM config_param_user WHERE "parameter"='nodecat_vdefault' AND "cur_user"="current_user"()),
-                (SELECT dma_id FROM dma WHERE (ST_endpoint(NEW.the_geom) @ dma.the_geom) LIMIT 1), 
-                ST_endpoint(NEW.the_geom)
-				);
-
-				INSERT INTO inp_junction (node_id) VALUES ((SELECT currval('urn_id_seq')));
-				INSERT INTO man_junction (node_id) VALUES ((SELECT currval('urn_id_seq')));
-
-			-- Update coordinates
-			NEW.the_geom:= ST_SetPoint(NEW.the_geom, 0, nodeRecord1.the_geom);
-			NEW.node_1:= nodeRecord1.node_id; 
-			NEW.node_2:= (SELECT currval('urn_id_seq'));  
-			RETURN NEW;
-			END IF;*/
 		
 	--	Error, no existing nodes
 		ELSIF ((nodeRecord1.node_id IS NULL) OR (nodeRecord2.node_id IS NULL)) AND (arc_searchnodes_control_aux IS TRUE) THEN
@@ -228,5 +147,3 @@ END;
 $BODY$
   LANGUAGE plpgsql VOLATILE
   COST 100;
-ALTER FUNCTION SCHEMA_NAME.pl_trg_topocontrol_arc()
-  OWNER TO postgres;
