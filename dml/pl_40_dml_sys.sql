@@ -13,3 +13,11 @@ INSERT INTO man_addfields_cat_datatype VALUES ('date', NULL);
 INSERT INTO man_addfields_cat_datatype VALUES ('boolean', NULL);
 INSERT INTO man_addfields_cat_datatype VALUES ('numeric', NULL);
 
+
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (1, 'feature_type', 'ARC', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (2, 'feature_type', 'NODE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (3, 'system_id', 'PANELBOARD', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (4, 'system_id', 'REGISTER', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (5, 'system_id', 'LAMPPOST', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (6, 'system_id', 'LIGHTPOINT', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (7, 'system_id', 'LINE', NULL);
