@@ -2,35 +2,35 @@
 
 SET search_path = "SCHEMA_NAME", public, pg_catalog;
 
---DROP CONSTRAINT
-ALTER TABLE ONLY om_visit_class_x_parameter DROP CONSTRAINT om_visit_class_x_parameter_class_fkey;
-ALTER TABLE ONLY om_visit_class_x_parameter DROP CONSTRAINT om_visit_class_x_parameter_parameter_fkey;
+--DROP CONSTRAINT 
+ALTER TABLE ONLY om_visit_class_x_parameter DROP CONSTRAINT IF EXISTS om_visit_class_x_parameter_class_fkey;
+ALTER TABLE ONLY om_visit_class_x_parameter DROP CONSTRAINT IF EXISTS om_visit_class_x_parameter_parameter_fkey;
 
-ALTER TABLE ONLY om_visit_event_photo DROP CONSTRAINT om_visit_event_foto_event_id_fkey ;
-ALTER TABLE ONLY om_visit_event_photo DROP CONSTRAINT om_visit_event_foto_visit_id_fkey ;
+ALTER TABLE ONLY om_visit_event_photo DROP CONSTRAINT IF EXISTS om_visit_event_foto_event_id_fkey ;
+ALTER TABLE ONLY om_visit_event_photo DROP CONSTRAINT IF EXISTS om_visit_event_foto_visit_id_fkey ;
 
-ALTER TABLE ONLY om_visit_event DROP CONSTRAINT om_visit_event_parameter_id_fkey;
-ALTER TABLE ONLY om_visit_event DROP CONSTRAINT om_visit_event_position_id_fkey;
-ALTER TABLE ONLY om_visit_event DROP CONSTRAINT om_visit_event_visit_id_fkey;
+ALTER TABLE ONLY om_visit_event DROP CONSTRAINT IF EXISTS om_visit_event_parameter_id_fkey;
+ALTER TABLE ONLY om_visit_event DROP CONSTRAINT IF EXISTS om_visit_event_position_id_fkey;
+ALTER TABLE ONLY om_visit_event DROP CONSTRAINT IF EXISTS om_visit_event_visit_id_fkey;
 
-ALTER TABLE ONLY om_visit DROP CONSTRAINT om_visit_expl_id_fkey;
-ALTER TABLE ONLY om_visit DROP CONSTRAINT om_visit_om_visit_cat_id_fkey;
+ALTER TABLE ONLY om_visit DROP CONSTRAINT IF EXISTS om_visit_expl_id_fkey;
+ALTER TABLE ONLY om_visit DROP CONSTRAINT IF EXISTS om_visit_om_visit_cat_id_fkey;
 
-ALTER TABLE ONLY om_visit_parameter_x_parameter DROP CONSTRAINT om_visit_parameter_action_type_fkey;
+ALTER TABLE ONLY om_visit_parameter_x_parameter DROP CONSTRAINT IF EXISTS om_visit_parameter_action_type_fkey;
 
-ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT om_visit_parameter_criticity_fkey;
-ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT om_visit_parameter_feature_type_fkey;
-ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT om_visit_parameter_form_type_fkey;
-ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT om_visit_parameter_parameter_type_fkey;
+ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT IF EXISTS om_visit_parameter_criticity_fkey;
+ALTER TABLE om_visit_parameter DROP CONSTRAINT IF EXISTS om_visit_parameter_feature_type_check;
+ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT IF EXISTS om_visit_parameter_form_type_fkey;
+ALTER TABLE ONLY om_visit_parameter DROP CONSTRAINT IF EXISTS om_visit_parameter_parameter_type_fkey;
 
-ALTER TABLE ONLY om_visit_x_arc DROP CONSTRAINT om_visit_x_arc_arc_id_fkey;
-ALTER TABLE ONLY om_visit_x_arc DROP CONSTRAINT om_visit_x_arc_visit_id_fkey;
+ALTER TABLE ONLY om_visit_x_arc DROP CONSTRAINT IF EXISTS om_visit_x_arc_arc_id_fkey;
+ALTER TABLE ONLY om_visit_x_arc DROP CONSTRAINT IF EXISTS om_visit_x_arc_visit_id_fkey;
 
-ALTER TABLE ONLY om_visit_x_node DROP CONSTRAINT om_visit_x_node_node_id_fkey;
-ALTER TABLE ONLY om_visit_x_node DROP CONSTRAINT om_visit_x_node_visit_id_fkey;
+ALTER TABLE ONLY om_visit_x_node DROP CONSTRAINT IF EXISTS om_visit_x_node_node_id_fkey;
+ALTER TABLE ONLY om_visit_x_node DROP CONSTRAINT IF EXISTS om_visit_x_node_visit_id_fkey;
 
-ALTER TABLE ONLY om_visit_file DROP CONSTRAINT om_visit_file_visit_id_fkey;
-ALTER TABLE ONLY om_visit_file DROP CONSTRAINT selector_workcat_filetype_fextension_fkey;
+ALTER TABLE ONLY om_visit_file DROP CONSTRAINT IF EXISTS om_visit_file_visit_id_fkey;
+ALTER TABLE ONLY om_visit_file DROP CONSTRAINT IF EXISTS selector_workcat_filetype_fextension_fkey;
 
 --ADD CONSTRAINT
 ALTER TABLE ONLY om_visit_class_x_parameter 
@@ -55,7 +55,7 @@ ALTER TABLE ONLY om_visit_event
 ADD CONSTRAINT om_visit_event_visit_id_fkey FOREIGN KEY (visit_id) REFERENCES om_visit(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY om_visit
-ADD CONSTRAINT om_visit_expl_id_fkey FOREIGN KEY (expl_id) REFERENCES exploitation(expl_id) ON UPDATE CASCADE ON DELETE RESTRICT;
+ADD CONSTRAINT om_visit_expl_id_fkey FOREIGN KEY (expl_id) REFERENCES exploitation(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 ALTER TABLE ONLY om_visit_file
 ADD CONSTRAINT om_visit_file_visit_id_fkey FOREIGN KEY (visit_id) REFERENCES om_visit(id) ON UPDATE CASCADE ON DELETE CASCADE;
@@ -69,8 +69,7 @@ ADD CONSTRAINT om_visit_parameter_action_type_fkey FOREIGN KEY (action_type) REF
 ALTER TABLE ONLY om_visit_parameter
 ADD CONSTRAINT om_visit_parameter_criticity_fkey FOREIGN KEY (criticity) REFERENCES om_visit_value_criticity(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
-ALTER TABLE ONLY om_visit_parameter
-ADD CONSTRAINT om_visit_parameter_feature_type_fkey FOREIGN KEY (feature_type) REFERENCES sys_feature_type(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE om_visit_parameter ADD CONSTRAINT om_visit_parameter_feature_type_check CHECK (feature_type IN ('ARC', 'NODE'));
 
 ALTER TABLE ONLY om_visit_parameter
 ADD CONSTRAINT om_visit_parameter_form_type_fkey FOREIGN KEY (form_type) REFERENCES om_visit_parameter_form_type(id) ON UPDATE CASCADE ON DELETE RESTRICT;

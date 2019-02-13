@@ -16,10 +16,7 @@ ALTER TABLE node DROP CONSTRAINT IF EXISTS node_workcat_id_fkey;
 ALTER TABLE node DROP CONSTRAINT IF EXISTS node_workcat_id_end_fkey;
 ALTER TABLE node DROP CONSTRAINT IF EXISTS node_buildercat_id_fkey;
 ALTER TABLE node DROP CONSTRAINT IF EXISTS node_ownercat_id_fkey;
-ALTER TABLE node DROP CONSTRAINT IF EXISTS node_verified_id_fkey;
 ALTER TABLE node DROP CONSTRAINT IF EXISTS node_expl_fkey ;
-ALTER TABLE node DROP CONSTRAINT IF EXISTS  node_category_type_feature_type_fkey;
-ALTER TABLE node DROP CONSTRAINT IF EXISTS  node_location_type_feature_type_fkey;
 ALTER TABLE node DROP CONSTRAINT IF EXISTS node_feature_type_check;
 
 
@@ -34,10 +31,7 @@ ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_workcat_id_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_workcat_id_end_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_buildercat_id_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_ownercat_id_fkey;
-ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_verified_id_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_expl_fkey ;
-ALTER TABLE arc DROP CONSTRAINT IF EXISTS  arc_category_type_feature_type_fkey;
-ALTER TABLE arc DROP CONSTRAINT IF EXISTS  arc_location_type_feature_type_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_feature_type_check;
 
 --ADD CONSTRAINT
@@ -52,10 +46,7 @@ ALTER TABLE node ADD CONSTRAINT node_workcat_id_fkey FOREIGN KEY (workcat_id) RE
 ALTER TABLE node ADD CONSTRAINT node_workcat_id_end_fkey FOREIGN KEY (workcat_id_end) REFERENCES cat_work (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE node ADD CONSTRAINT node_buildercat_id_fkey FOREIGN KEY (buildercat_id) REFERENCES cat_builder (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE node ADD CONSTRAINT node_ownercat_id_fkey FOREIGN KEY (ownercat_id) REFERENCES cat_owner (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE node ADD CONSTRAINT node_verified_id_fkey FOREIGN KEY (verified_id) REFERENCES value_verified (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE node ADD CONSTRAINT node_expl_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE node ADD CONSTRAINT node_category_type_feature_type_fkey FOREIGN KEY (category_type_id,feature_type) REFERENCES cat_type_category (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
-ALTER TABLE node ADD CONSTRAINT node_location_type_feature_type_fkey FOREIGN KEY (location_type_id,feature_type) REFERENCES cat_type_location (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
 ALTER TABLE node ADD CONSTRAINT node_feature_type_check CHECK (feature_type::text = ANY (ARRAY['NODE'::character varying]::text[]));
 
 
@@ -70,8 +61,5 @@ ALTER TABLE arc ADD CONSTRAINT arc_workcat_id_fkey FOREIGN KEY (workcat_id) REFE
 ALTER TABLE arc ADD CONSTRAINT arc_workcat_id_end_fkey FOREIGN KEY (workcat_id_end) REFERENCES cat_work (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE arc ADD CONSTRAINT arc_buildercat_id_fkey FOREIGN KEY (buildercat_id) REFERENCES cat_builder (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE arc ADD CONSTRAINT arc_ownercat_id_fkey FOREIGN KEY (ownercat_id) REFERENCES cat_owner (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE arc ADD CONSTRAINT arc_verified_id_fkey FOREIGN KEY (verified_id) REFERENCES value_verified (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE arc ADD CONSTRAINT arc_expl_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE arc ADD CONSTRAINT arc_category_type_feature_type_fkey FOREIGN KEY (category_type_id,feature_type) REFERENCES cat_type_category (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
-ALTER TABLE arc ADD CONSTRAINT arc_location_type_feature_type_fkey FOREIGN KEY (location_type_id,feature_type) REFERENCES cat_type_location (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
 ALTER TABLE arc ADD CONSTRAINT arc_feature_type_check CHECK (feature_type::text = ANY (ARRAY['ARC'::character varying]::text[]));

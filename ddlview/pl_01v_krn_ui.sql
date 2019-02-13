@@ -12,8 +12,6 @@ CREATE OR REPLACE VIEW v_ui_node AS
     node.observ,
     dma.idval as dma,
     cat_soil.idval as soil,
-    cat_type_location.idval as location_type,
-    cat_type_category.idval as category_type,
     cat_work.idval as workcat,
     cat_work_end.idval as workcat_end,
     cat_builder.idval as buildercat,
@@ -30,7 +28,6 @@ CREATE OR REPLACE VIEW v_ui_node AS
     node.postcomplement2,
     node.descript,
     node.link,
-    value_verified.idval as verified,
     node.rotation,
     node.the_geom,
     node.undelete,
@@ -50,8 +47,6 @@ CREATE OR REPLACE VIEW v_ui_node AS
      LEFT JOIN value_state_type ON value_state_type.id=node.state_type_id
      LEFT JOIN dma ON dma.id=node.dma_id
      LEFT JOIN cat_soil ON  cat_soil.id=node.soilcat_id
-     LEFT JOIN cat_type_location ON  cat_type_location.id = node.location_type_id
-     LEFT JOIN cat_type_category ON  cat_type_category.id=node.category_type_id
      LEFT JOIN cat_work ON cat_work.id = workcat_id
      LEFT JOIN cat_work as cat_work_end ON cat_work_end.id = workcat_id_end
      LEFT JOIN cat_builder ON cat_builder.id=node.buildercat_id
@@ -61,7 +56,6 @@ CREATE OR REPLACE VIEW v_ui_node AS
      LEFT JOIN ext_streetaxis AS ext_streetaxis2 ON ext_streetaxis2.id=node.streetaxis_id
      LEFT JOIN ext_address ON ext_address.id=node.postnumber
      LEFT JOIN ext_address as ext_address2 ON ext_address2.id=node.postnumber2
-     LEFT JOIN value_verified ON value_verified.id=node.verified_id
      LEFT JOIN exploitation ON exploitation.id=node.expl_id;
 
 
@@ -80,8 +74,6 @@ CREATE OR REPLACE VIEW v_ui_arc AS
     custom_length,
     dma.idval as dma,
     cat_soil.idval as soil,
-    cat_type_location.idval as location_type,
-    cat_type_category.idval as category_type,
     cat_work.idval as workcat,
     cat_work_end.idval as workcat_end,
     cat_builder.idval as buildercat,
@@ -98,7 +90,6 @@ CREATE OR REPLACE VIEW v_ui_arc AS
     arc.postcomplement2,
     arc.descript,
     arc.link,
-    value_verified.idval as verified,
     arc.the_geom,
     arc.undelete,
     arc.label_x,
@@ -117,8 +108,6 @@ CREATE OR REPLACE VIEW v_ui_arc AS
      LEFT JOIN value_state_type ON value_state_type.id=arc.state_type_id
      LEFT JOIN dma ON dma.id=arc.dma_id
      LEFT JOIN cat_soil ON  cat_soil.id=arc.soilcat_id
-     LEFT JOIN cat_type_location ON  cat_type_location.id = arc.location_type_id
-     LEFT JOIN cat_type_category ON  cat_type_category.id=arc.category_type_id
      LEFT JOIN cat_work ON cat_work.id = workcat_id
      LEFT JOIN cat_work as cat_work_end ON cat_work_end.id = workcat_id_end
      LEFT JOIN cat_builder ON cat_builder.id=arc.buildercat_id
@@ -128,7 +117,6 @@ CREATE OR REPLACE VIEW v_ui_arc AS
      LEFT JOIN ext_streetaxis AS ext_streetaxis2 ON ext_streetaxis2.id=arc.streetaxis_id
      LEFT JOIN ext_address ON ext_address.id=arc.postnumber
      LEFT JOIN ext_address as ext_address2 ON ext_address2.id=arc.postnumber2
-     LEFT JOIN value_verified ON value_verified.id=arc.verified_id
      LEFT JOIN exploitation ON exploitation.id=arc.expl_id;
      
      

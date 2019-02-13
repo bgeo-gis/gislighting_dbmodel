@@ -6,10 +6,6 @@
 	    element
 	  WHERE element.state_id = selector_state.state_id AND selector_state.cur_user = "current_user"()::text;
 
-	DROP VIEW IF EXISTS ve_element CASCADE;
-
-	SET search_path = "SCHEMA_NAME", public, pg_catalog;
-
 
 	DROP VIEW IF EXISTS ve_element CASCADE;
 	CREATE VIEW ve_element AS SELECT
@@ -21,19 +17,16 @@
 		state_id,
 		state_type_id,
 		num_elements,
-		observ,
+		element.observ,
 		comment,
-		category_type_id,
-		location_type_id,
 		workcat_id,
 		workcat_id_end,
 		buildercat_id,
-		builtdate,
-		enddate,
+		element.builtdate,
+		element.enddate,
 		ownercat_id,
 		rotation,
 		concat(element_type.link_path, element.link) AS link,
-		verified_id,
 		element.the_geom,
 		label_x,
 		label_y,
@@ -101,35 +94,43 @@
 	drop view if exists v_ui_element cascade; 
 	CREATE VIEW "v_ui_element" AS 
 	SELECT 
-	element_id as id,
+	element.element_id as id,
 	code,
-	elementcat_id,
+	cat_element.idval as elementcat_id,
 	serial_number,
 	num_elements ,
-	state_id,
-	state_type_id,
-	observ ,
+    value_state.idval as state,
+    value_state_type.idval as state_type,
+	element.observ ,
 	comment ,
-	category_type_id ,
-	location_type_id ,
-	workcat_id ,
-	workcat_id_end ,
-	buildercat_id ,
-	builtdate,
-	enddate ,
-	ownercat_id ,
+	cat_work.idval as workcat,
+    cat_work_end.idval as workcat_end,
+	cat_builder.idval as buildercat,
+	element.builtdate,
+	element.enddate ,
+	cat_owner.idval as ownercat,
 	rotation ,
-	link ,
-	verified_id,
-	the_geom ,
+	element.link ,
+	element.the_geom ,
 	label_x ,
 	label_y ,
 	label_rotation ,
-	undelete ,
+	element.undelete ,
 	publish ,
 	inventory ,
-	expl_id ,
+	exploitation.idval as expl,
 	feature_type ,
-	tstamp
-	FROM element;
+	element.tstamp
+	FROM element
+	JOIN v_state_element ON element.element_id=v_state_element.element_id
+     LEFT JOIN cat_element ON cat_element.id=element.elementcat_id
+     LEFT JOIN value_state ON value_state.id=element.state_id
+     LEFT JOIN value_state_type ON value_state_type.id=element.state_type_id
+     LEFT JOIN cat_builder ON cat_builder.id=element.buildercat_id
+     LEFT JOIN cat_owner ON cat_owner.id=element.ownercat_id
+     LEFT JOIN cat_work ON cat_work.id = workcat_id
+     LEFT JOIN cat_work as cat_work_end ON cat_work_end.id = workcat_id_end
+     LEFT JOIN exploitation ON exploitation.id=element.expl_id;
+
+
 

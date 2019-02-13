@@ -58,7 +58,7 @@ CREATE TABLE om_visit_event (
     id bigserial NOT NULL PRIMARY KEY,
     event_code character varying(16),
     visit_id bigint NOT NULL,
-    position_id character varying(50),
+    position_id integer,
     position_value double precision,
     parameter_id character varying(50) NOT NULL,
     value text,
@@ -103,7 +103,8 @@ CREATE TABLE om_visit_file (
 
 CREATE TABLE om_visit_filetype_x_extension (
     filetype character varying(30) NOT NULL,
-    fextension character varying(16) NOT NULL
+    fextension character varying(16) NOT NULL,
+    PRIMARY KEY (filetype,fextension)
 );
 
 
@@ -124,7 +125,7 @@ CREATE TABLE om_visit_lot (
 
 CREATE TABLE om_visit_lot_x_arc (
     lot_id integer NOT NULL,
-    arc_id character varying(16) NOT NULL,
+    arc_id integer NOT NULL,
     status integer,
     observations text
 );
@@ -132,14 +133,14 @@ CREATE TABLE om_visit_lot_x_arc (
 
 CREATE TABLE om_visit_lot_x_node (
     lot_id integer NOT NULL,
-    node_id character varying(16) NOT NULL,
+    node_id integer NOT NULL,
     status integer,
     observations text
 );
 
 --id idval???
 CREATE TABLE om_visit_parameter_form_type (
-    id character varying(50) NOT NULL,
+    id character varying(50) NOT NULL PRIMARY KEY,
     CONSTRAINT om_visit_parameter_form_type_check CHECK (((id)::text = ANY ((ARRAY['event_standard'::character varying, 'event_ud_arc_rehabit'::character varying, 'event_ud_arc_standard'::character varying])::text[])))
 );
 
@@ -208,13 +209,13 @@ CREATE TABLE om_visit_value_criticity (
 CREATE TABLE om_visit_x_arc (
     id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
-    arc_id character varying(16) NOT NULL,
+    arc_id integer NOT NULL,
     is_last boolean DEFAULT true
 );
 
 CREATE TABLE om_visit_x_node (
     id bigserial NOT NULL PRIMARY KEY,
     visit_id bigint NOT NULL,
-    node_id character varying(16) NOT NULL,
+    node_id integer NOT NULL,
     is_last boolean DEFAULT true
 );

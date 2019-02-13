@@ -15,10 +15,6 @@ INSERT INTO value_state_type VALUES (3, 2, 'PLANIFICAT', true, true);
 INSERT INTO value_state_type VALUES (4, 2, 'RECONSTRUIR', true, false);
 INSERT INTO value_state_type VALUES (5, 1, 'PROVISIONAL', false, true);
 
--- Records of value_verified
--- ----------------------------
-INSERT INTO "value_verified" (idval) VALUES ('PER REVISAR');
-INSERT INTO "value_verified" (idval) VALUES ('VERIFICAT');
 
 --doc
 INSERT INTO doc_type (idval) VALUES ('AS_BUILT');

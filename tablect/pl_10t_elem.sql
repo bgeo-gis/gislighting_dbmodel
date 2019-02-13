@@ -13,11 +13,8 @@ ALTER TABLE element DROP CONSTRAINT IF EXISTS element_workcat_id_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_workcat_id_end_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_buildercat_id_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_ownercat_id_fkey;
-ALTER TABLE element DROP CONSTRAINT IF EXISTS element_verified_id_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_feature_type_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_state_type_id_fkey;
-ALTER TABLE element DROP CONSTRAINT IF EXISTS element_category_type_feature_type_fkey;
-ALTER TABLE element DROP CONSTRAINT IF EXISTS element_location_type_feature_type_fkey;
 
 ALTER TABLE element_x_arc DROP CONSTRAINT IF EXISTS element_x_arc_element_id_fkey;
 ALTER TABLE element_x_arc DROP CONSTRAINT IF EXISTS element_x_arc_arc_id_fkey;
@@ -39,9 +36,6 @@ ALTER TABLE element ADD CONSTRAINT element_workcat_id_fkey FOREIGN KEY (workcat_
 ALTER TABLE element ADD CONSTRAINT element_workcat_id_end_fkey FOREIGN KEY (workcat_id_end) REFERENCES cat_work (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE element ADD CONSTRAINT element_buildercat_id_fkey FOREIGN KEY (buildercat_id) REFERENCES cat_builder (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE element ADD CONSTRAINT element_ownercat_id_fkey FOREIGN KEY (ownercat_id) REFERENCES cat_owner (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE element ADD CONSTRAINT element_verified_id_fkey FOREIGN KEY (verified_id) REFERENCES value_verified (id) ON DELETE RESTRICT ON UPDATE CASCADE;
-ALTER TABLE element ADD CONSTRAINT element_category_type_feature_type_fkey FOREIGN KEY (category_type_id,feature_type) REFERENCES cat_type_category (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
-ALTER TABLE element ADD CONSTRAINT element_location_type_feature_type_fkey FOREIGN KEY (location_type_id,feature_type) REFERENCES cat_type_location (id, feature_type) ON DELETE RESTRICT ON UPDATE CASCADE; 
 ALTER TABLE element ADD CONSTRAINT element_feature_type_check CHECK (feature_type::text = ANY (ARRAY['ELEMENT'::character varying]::text[]));
 
 ALTER TABLE element_x_arc ADD CONSTRAINT element_x_arc_element_id_fkey FOREIGN KEY (element_id) REFERENCES element (element_id) ON DELETE CASCADE ON UPDATE CASCADE;

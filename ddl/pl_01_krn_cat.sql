@@ -44,34 +44,6 @@ is_operative boolean,
 is_doable boolean
 );
 
-CREATE TABLE value_verified (
-id serial NOT NULL PRIMARY KEY,
-idval varchar(30) NOT NULL,
-observ text
-);
-
-
-CREATE TABLE dattrib(
-dattrib_type integer,
-feature_id character varying(30),
-feature_type varchar(30),
-idval text,
-CONSTRAINT dattrib_pkey PRIMARY KEY (dattrib_type, feature_id)
-);
-
-  
-CREATE TABLE dattrib_type(
-id INTEGER PRIMARY KEY,
-idval varchar(30),
-observ text,
-project_type varchar (30)
-);
-
-
-
-CREATE INDEX dattrib_feature_id_index ON dattrib USING btree (feature_id COLLATE pg_catalog.default);
-
-CREATE INDEX dattrib_dattrib_type_index ON dattrib USING btree (dattrib_type);
 
 CREATE TABLE cat_user(
 id varchar(50) PRIMARY KEY NOT NULL
@@ -155,24 +127,3 @@ descript varchar(512)  ,
 link varchar(512)  ,
 CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
 );
-
-
-CREATE TABLE cat_type_category (
-id serial NOT NULL,
-idval varchar(50),
-featurecat_id integer,
-feature_type varchar(30),
-observ varchar(150),
-CONSTRAINT cat_type_category_pkey PRIMARY KEY (id)
-);
-
-
-CREATE TABLE cat_type_location (
-id serial NOT NULL,
-idval varchar(50),
-featurecat_id integer,
-feature_type varchar(30),
-observ varchar(150),
-CONSTRAINT cat_type_location_pkey PRIMARY KEY (id)
-);
-

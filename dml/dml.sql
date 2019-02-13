@@ -40,13 +40,15 @@ INSERT INTO man_addfields_parameter VALUES (18, 'light_type', '4', 'text', 30, N
 INSERT INTO man_addfields_parameter VALUES (17, 'light_code', '4', 'text', 30, NULL, false, NULL, 'codilamp');
 INSERT INTO man_addfields_parameter VALUES (16, 'power', '4', 'integer', 10, NULL, false, NULL, 'potencia');
 INSERT INTO man_addfields_parameter VALUES (15, 'light_number', '4', 'integer', 3, NULL, false, NULL, 'numpunt');
+INSERT INTO man_addfields_parameter VALUES (39, 'location', '5', 'text', 50, NULL, false, NULL, 'tipus');
 
 
-INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (2, 'ARQUETA', 'REGISTER', 'NODE', 'R', 've_node', 've_node_arqueta', NULL, true, NULL);
-INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (3, 'COLUMNA', 'LAMPPOST', 'NODE', 'C', 've_node', 've_node_columna', NULL, true, 1);
-INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (5, 'LINIA', 'LINE', 'ARC', 'L', 've_arc', 've_arc_linia', NULL, true, 1);
-INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (4,'PUNT', 'LIGHTPOINT', 'NODE', 'P', 've_node', 've_node_punto_luz', NULL, true, NULL);
-INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill) VALUES (1,'QUADRE', 'PANELBOARD', 'NODE', 'Q', 've_node', 've_node_quadre', NULL, true, 1);
+
+INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill,topology_type) VALUES (2, 'ARQUETA', 'REGISTER', 'NODE', 'R', 've_node', 've_node_arqueta', NULL, true, NULL, NULL);
+INSERT INTO cat_feature (id, idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill,topology_type) VALUES (3, 'COLUMNA', 'LAMPPOST', 'NODE', 'C', 've_node', 've_node_columna', NULL, true, NULL, 1);
+INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill,topology_type) VALUES (5, 'LINIA', 'LINE', 'ARC', 'L', 've_arc', 've_arc_linia', NULL, true,NULL, 1);
+INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill,topology_type) VALUES (4,'PUNT', 'LIGHTPOINT', 'NODE', 'P', 've_node', 've_node_punto_luz', NULL, true, NULL, NULL);
+INSERT INTO cat_feature (id,idval, system_id, feature_type, shortcut_key, parent_layer, child_layer, orderby, active, code_autofill, topology_type) VALUES (1,'QUADRE', 'PANELBOARD', 'NODE', 'Q', 've_node', 've_node_quadre', NULL, true,NULL, 1);
 
 
 
@@ -64,10 +66,10 @@ INSERT INTO dma VALUES (1, 'dma1', 1, NULL, NULL, '0106000020E764000001000000010
 
 INSERT INTO ext_municipality VALUES (1, 'muni1', NULL, '0106000020E76400000100000001030000000100000005000000947C5CBD6FF319416C5659F22F89514178A0E03EFC201A41168A209F9B8A514182FF6B367D3A1A41FCFA088532885141251F5717A5081A4168ECB769C5865141947C5CBD6FF319416C5659F22F895141');
 
-INSERT INTO cat_type_location VALUES (1, 'soterrada', 5, 'ARC', NULL);
-INSERT INTO cat_type_location VALUES (2, 'aèria', 5, 'ARC', NULL);
+INSERT INTO selector_state VALUES (1,'postgres');
 
-INSERT INTO selector_state (1,'postgres');
+
+INSERT INTO om_visit_parameter_form_type (id) VALUES ('event_standard');
 
 INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('intermittent_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Làmpada intermitent', 'event_standard', NULL, NULL, 'PUNT');
 INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_bulb_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Làmpada trencada', 'event_standard', NULL, NULL, 'PUNT');
