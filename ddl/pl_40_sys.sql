@@ -211,3 +211,19 @@ CREATE TABLE audit_log_data (
   tstamp timestamp without time zone DEFAULT now(),
   user_name text DEFAULT "current_user"()
 );
+
+-- ----------------------------------
+-- Tables: temporal
+-- ----------------------------------
+
+CREATE TABLE temp_table(
+  id serial NOT NULL,
+  fprocesscat_id smallint,
+  feature_id integer,
+  text_column text,
+  geom_point geometry(Point,25831),
+  geom_line geometry(LineString,25831),
+  geom_polygon geometry(MultiPolygon,25831),
+  cur_user text DEFAULT "current_user"(),
+  CONSTRAINT temp_table_pkey PRIMARY KEY (id)
+);

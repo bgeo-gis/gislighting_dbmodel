@@ -59,12 +59,7 @@ BEGIN
 		INSERT INTO version (giswater, wsoftware, postgres, postgis, language, epsg) VALUES (v_gwversion, upper(v_projecttype), (select version()),(select postgis_version()), v_language, v_epsg);	
 		v_message='Project sucessfully created';
 		
-		-- inserting on inp_project table
-		INSERT INTO inp_project_id VALUES (v_title, v_author, v_date);
-		
-		-- fk from utils schema
-		PERFORM gw_fct_admin_schema_utils_fk();  -- this is the posiition to use it because of we need values on version table to workwith
-		
+
 	ELSIF v_isnew IS FALSE THEN
 
 		-- inserting version table
@@ -84,7 +79,7 @@ BEGIN
 	END IF;
 	
 	-- update permissions	
-	PERFORM gw_fct_admin_role_permissions();
+	--PERFORM gw_fct_admin_role_permissions();
 
 
 	--    Control NULL's
