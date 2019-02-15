@@ -42,14 +42,15 @@ BEGIN
 				ORDER BY t1.node_id LOOP
 				
 		select * into v_street from ext_streetaxis where id=rec.streetaxis_id;
-	
+
+	--if node has assigned the streetaxis continue with the process of separating lights
+	if rec.streetaxis_id is not null then
 	--	if post has only one lightpoint (check if the last post has the same id and reset the count_light if not)
 		if v_last_post_id != rec.post_id THEN
 
 			v_count_light = 1;
 
-			--if node has assigned the streetaxis find the shortest line between column and street, interpolate the location of a point over the line
-			if rec.streetaxis_id is not null then
+			--find the shortest line between column and street, interpolate the location of a point over the line
 				v_line = ST_ShortestLine(rec.the_geom,v_street.the_geom);
 				v_separate_fraction = v_light_separate_distance / ST_Length(v_line);
 				
@@ -60,7 +61,6 @@ BEGIN
 					INSERT INTO temp_table (feature_id, text_column, geom_point, fprocesscat_id) 
 					VALUES (rec.post_id, 'Distance to streetaxis shorter than offset distance',rec.the_geom, 1);
 				end if;
-			end if;
 		ELSE
 			--	if post has more than one lightpoint, the second is a mirror reflexion of the first light, the other ones are not managed by the function
 			if v_count_light = 2 then
@@ -75,6 +75,10 @@ BEGIN
 		END IF;
 		--update the value of the last post in loop
 		v_last_post_id = rec.post_id;
+	else 
+		INSERT INTO temp_table (feature_id, text_column, geom_point, fprocesscat_id) 
+				VALUES (rec.post_id, 'Streetaxis_id is missing',rec.the_geom, 1);
+	end if;
 	end loop;
 
 	return null;
