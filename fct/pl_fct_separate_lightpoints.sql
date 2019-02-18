@@ -24,8 +24,8 @@ BEGIN
 
 	delete from temp_table where fprocesscat_id=1 and cur_user=current_user;
 	
-	v_node_search_streetaxis = (SELECT value::numeric FROM config_param_user WHERE parameter='node_search_streetaxis' AND cur_user=current_user);
-	v_light_separate_distance = (SELECT value::numeric FROM config_param_user WHERE parameter='light_separate_distance' AND cur_user=current_user);
+	v_node_search_streetaxis = (SELECT value::numeric FROM config_param_system WHERE parameter='node_search_streetaxis' );
+	v_light_separate_distance = (SELECT value::numeric FROM config_param_system WHERE parameter='light_separate_distance' );
 
 	--update value of streetaxis_id of node
 	update node set streetaxis_id=id from ext_streetaxis where streetaxis_id is null and st_dwithin(node.the_geom,ext_streetaxis.the_geom, v_node_search_streetaxis);
