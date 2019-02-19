@@ -13,8 +13,8 @@ CREATE TABLE sys_typevalue
 );
 
 CREATE TABLE cat_addfields_typevalue
-(id integer NOT NULL,
- typevalue character varying(50) NOT NULL,
+(id serial NOT NULL,
+ typevalue integer NOT NULL,
  idval character varying(30),
  descript text,
  CONSTRAINT cat_addfields_typevalue_pkey PRIMARY KEY (typevalue, idval)

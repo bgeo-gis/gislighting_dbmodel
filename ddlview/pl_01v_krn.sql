@@ -359,7 +359,9 @@ CREATE OR REPLACE VIEW ve_node_punto_luz AS
     a.light_type,
     a.light_form,
     a.color_temperature,
-    a.ballast_code
+    a.ballast_code,
+    a.light_height,
+    a.initial_flow
     FROM SCHEMA_NAME.ve_node
     LEFT JOIN ( SELECT ct.feature_id,
             ct.panelboard,
@@ -371,12 +373,15 @@ CREATE OR REPLACE VIEW ve_node_punto_luz AS
             ct.light_type,
             ct.light_form,
             ct.color_temperature,
-            ct.ballast_code
+            ct.ballast_code,
+            ct.light_height,
+            ct.initial_flow
            FROM public.crosstab('SELECT feature_id, parameter_id, value_param
                     FROM SCHEMA_NAME.man_addfields_value JOIN SCHEMA_NAME.man_addfields_parameter on man_addfields_parameter.id=parameter_id where cat_feature_id=4
-                    ORDER  BY 1,2'::text, ' VALUES (''12''),(''13''),(''14''),(''15''),(''16''),(''17''),(''18''),(''19''),(''20''),(''21'')'::text) 
+                    ORDER  BY 1,2'::text, ' VALUES (''12''),(''13''),(''14''),(''15''),(''16''),(''17''),(''18''),(''19''),(''20''),(''21''),
+                    (''40''),(''41'')'::text) 
                     ct(feature_id character varying, panelboard text, line text, lamppost text, light_number integer, power integer, light_code text,
-                    light_type text, light_form text, color_temperature text, ballast_code text)) a 
+                    light_type text, light_form text, color_temperature text, ballast_code text, light_height numeric, initial_flow numeric)) a 
                     ON a.feature_id::text = ve_node.node_id::text
     LEFT JOIN SCHEMA_NAME.cat_node ON ve_node.nodecat_id = cat_node.id WHERE cat_node.cat_feature_id::text = 4::text;
 

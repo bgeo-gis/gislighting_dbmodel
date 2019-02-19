@@ -13,7 +13,7 @@ ALTER TABLE value_state_type DROP CONSTRAINT IF EXISTS value_state_type_state_id
 ALTER TABLE cat_feature DROP CONSTRAINT IF EXISTS cat_feature_type_check;
 ALTER TABLE cat_feature DROP CONSTRAINT IF EXISTS cat_feature_system_id_check;
 
-
+ALTER TABLE cat_addfields_typevalue DROP CONSTRAINT IF EXISTS cat_addfields_typevalue_typevalue_fkey;
 --ADD
 
 ALTER TABLE exploitation_x_user ADD CONSTRAINT exploitation_x_user_expl_id_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -24,6 +24,8 @@ ALTER TABLE exploitation_x_user ADD CONSTRAINT exploitation_x_user_expl_username
 ALTER TABLE dma ADD CONSTRAINT dma_expl_id_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 ALTER TABLE value_state_type ADD CONSTRAINT value_state_type_state_id_fkey FOREIGN KEY (state_id) REFERENCES value_state (id) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+ALTER TABLE cat_addfields_typevalue ADD CONSTRAINT cat_addfields_typevalue_typevalue_fkey FOREIGN KEY (typevalue) REFERENCES man_addfields_parameter (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 
 

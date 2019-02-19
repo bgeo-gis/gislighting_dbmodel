@@ -41,6 +41,8 @@ INSERT INTO man_addfields_parameter VALUES (17, 'light_code', '4', 'text', 30, N
 INSERT INTO man_addfields_parameter VALUES (16, 'power', '4', 'integer', 10, NULL, false, NULL, 'potencia');
 INSERT INTO man_addfields_parameter VALUES (15, 'light_number', '4', 'integer', 3, NULL, false, NULL, 'numpunt');
 INSERT INTO man_addfields_parameter VALUES (39, 'location', '5', 'text', 50, NULL, false, NULL, 'tipus');
+INSERT INTO man_addfields_parameter VALUES (40, 'light_height', '4', 'numeric', 12, 3, false, NULL, 'alçadasup');
+INSERT INTO man_addfields_parameter VALUES (41, 'initial_flow', '4', 'numeric', 12, 3, false, NULL, 'fluxinlamp');
 
 
 
@@ -97,3 +99,5 @@ INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_typ
 INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('deterioration_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Deteriorament', 'event_standard', NULL, NULL, 'PUNT');
 INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('broken_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Trencament', 'event_standard', NULL, NULL, 'PUNT');
 INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('out-of-order_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'No funciona', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('light_install_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Instalació llum', 'event_standard', NULL, NULL, 'PUNT');
+INSERT INTO om_visit_parameter (id, code, parameter_type, feature_type, data_type, criticity, descript, form_type, vdefault, ismultifeature, short_descript) VALUES ('ballast_install_lp', NULL, 'INSPECCIO', 'NODE', 'TEXT', NULL, 'Instalació balastro', 'event_standard', NULL, NULL, 'PUNT');
