@@ -4,8 +4,8 @@ INSERT INTO config_param_system VALUES (2, 'arc_searchnodes_control', 'true', 'b
 INSERT INTO config_param_system VALUES (3, 'samenode_init_end_control', 'false', 'boolean', 'edit', NULL, NULL, NULL, 'Arc same node init end control:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (5, 'state_topocontrol', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'State topocontrol:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (4, 'edit_topocontrol_dsbl_error', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Topocontrol error:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (6, 'node_search_streetaxis', 'true', 'numeric', 'edit', NULL, NULL, NULL, 'Node search streetaxis:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (7, 'light_separate_distance', 'true', 'numeric', 'edit', NULL, NULL, NULL, 'Light separate distance:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (6, 'node_search_streetaxis', '5', 'numeric', 'edit', NULL, NULL, NULL, 'Node search streetaxis:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (7, 'light_separate_distance', '0.7', 'numeric', 'edit', NULL, NULL, NULL, 'Light separate distance:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 

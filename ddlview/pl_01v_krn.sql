@@ -369,7 +369,7 @@ CREATE OR REPLACE VIEW ve_node_punto_luz AS
             ct.lamppost,
             ct.light_number,
             ct.power,
-            ct.light_code,
+            ct.light_code,  
             ct.light_type,
             ct.light_form,
             ct.color_temperature,

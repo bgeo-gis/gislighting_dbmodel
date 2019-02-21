@@ -62,6 +62,9 @@ BEGIN
 					VALUES (rec.post_id, 'Distance to streetaxis shorter than offset distance',rec.the_geom, 1);
 				end if;
 		ELSE
+			--update count of existing lights
+			v_count_light=v_count_light+1;
+			
 			--	if post has more than one lightpoint, the second is a mirror reflexion of the first light, the other ones are not managed by the function
 			if v_count_light = 2 then
 				v_point_reflect=ST_SetSrid(ST_MakePoint((2*St_x(rec.the_geom) - St_x(v_point)), (2*ST_y(rec.the_geom) - ST_y(v_point))),25831);
@@ -70,8 +73,7 @@ BEGIN
 				INSERT INTO temp_table (feature_id, text_column, geom_point, fprocesscat_id) 
 				VALUES (rec.post_id, 'More than two lights located on the lightpost',rec.the_geom, 1);
 			end if;
-			--update count of existing lights
-			v_count_light=v_count_light+1;
+
 		END IF;
 		--update the value of the last post in loop
 		v_last_post_id = rec.post_id;
