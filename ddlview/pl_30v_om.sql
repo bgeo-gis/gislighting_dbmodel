@@ -2,9 +2,8 @@ set search_path=SCHEMA_NAME, public;
 
 DROP VIEW IF EXISTS v_ui_om_visit_x_node CASCADE;
 CREATE OR REPLACE VIEW v_ui_om_visit_x_node AS 
- SELECT 
+ SELECT om_visit_event.id AS event_id,
     om_visit.id AS visit_id,
-    om_visit_event.id AS event_id,
     om_visit.ext_code AS code,
     om_visit.visitcat_id,
     om_visit.startdate AS visit_start,
@@ -43,8 +42,8 @@ CREATE OR REPLACE VIEW v_ui_om_visit_x_node AS
 
 DROP VIEW IF EXISTS v_ui_om_visit_x_arc CASCADE;
 CREATE OR REPLACE VIEW v_ui_om_visit_x_arc AS 
-    SELECT om_visit.id AS visit_id,
-    om_visit_event.id AS event_id,
+    SELECT om_visit_event.id AS event_id,
+    om_visit.id AS visit_id,
     om_visit.ext_code AS code,
     om_visit.visitcat_id,
     om_visit.startdate AS visit_start,
