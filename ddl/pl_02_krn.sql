@@ -10,43 +10,55 @@ CREATE SEQUENCE urn_id_seq
     NO MAXVALUE
     CACHE 1;
     
-CREATE TABLE cat_mat_arc (
+CREATE TABLE cat_mat (
 id serial NOT NULL,
 idval varchar(30)  ,
 descript varchar(512)  ,
+feature_type varchar(30) ,
 link varchar(512)  ,
 CONSTRAINT cat_mat_arc_pkey PRIMARY KEY (id)
 );
 
 
-CREATE TABLE cat_mat_node (
+
+CATALOGOS DE GISWATER IGUAL QUE ESTAN
+--------------------------------------
+CAT_OWNER,
+CAT_PAVEMENT,
+CAT_SOIL,
+CAT_USER,
+CAT_WORK,
+CAT_BUILDER
+
+
+
+
+CREATE TABLE cat_element (
 id serial NOT NULL,
-idval varchar(30)  ,
+idval varchar (30) NOT NULL,
+cat_feature_id integer,
+matcat_id integer  ,
 descript varchar(512)  ,
 link varchar(512)  ,
-CONSTRAINT cat_mat_node_pkey PRIMARY KEY (id)
+svg varchar(50)  ,
+active boolean
 );
+
 
 CREATE TABLE cat_arc (
 id serial NOT NULL,
 idval varchar (30) NOT NULL,
 cat_feature_id integer,
-matcat_id varchar(30)  ,
-pnom varchar(16)  ,
-dnom varchar(16)  ,
-dint numeric(12,5),
-dext numeric(12,5),
+matcat_id integer  ,
+area float ,
+nlines integer, 
 descript varchar(512)  ,
 link varchar(512)  ,
-brand varchar(30)  ,
-model varchar(30)  ,
 svg varchar(50)  ,
 z1 numeric (12,2),
 z2 numeric (12,2),
 width numeric (12,2),
-area numeric (12,4),
 estimated_depth numeric (12,2),
-bulk numeric (12,2),
 cost_unit varchar (3) DEFAULT 'm',
 cost varchar (16),
 m2bottom_cost varchar (16),
@@ -60,16 +72,9 @@ CREATE TABLE cat_node (
 id serial NOT NULL,
 idval varchar (30) NOT NULL,
 cat_feature_id integer,
-matcat_id varchar(30)  ,
-pnom varchar(16)  ,
-dnom varchar(16)  ,
-dint numeric(12,5),
-dext numeric(12,5),
-shape character varying(50),
+matcat_id integer,
 descript varchar(512)  ,
 link varchar(512)  ,
-brand varchar(30)  ,
-model varchar(30)  ,
 svg varchar(50)  ,
 estimated_depth numeric (12,2),
 cost_unit varchar (3) DEFAULT 'u',
