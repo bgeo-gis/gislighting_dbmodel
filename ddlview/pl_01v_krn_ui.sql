@@ -4,6 +4,7 @@ CREATE OR REPLACE VIEW v_ui_node AS
  SELECT node.node_id,
     node.code,
     cat_node.idval as nodecat,
+    cat_mat.idval as matcat,
     node.arc_id,
     node.parent_id,
     value_state.idval as state,
@@ -43,6 +44,7 @@ CREATE OR REPLACE VIEW v_ui_node AS
    FROM node
      JOIN v_state_node ON v_state_node.node_id::text = node.node_id::text
      LEFT JOIN cat_node ON cat_node.id=node.nodecat_id
+     LEFT JOIN cat_mat ON cat_mat.id=cat_node.matcat_id
      LEFT JOIN value_state ON value_state.id=node.state_id
      LEFT JOIN value_state_type ON value_state_type.id=node.state_type_id
      LEFT JOIN dma ON dma.id=node.dma_id
@@ -66,6 +68,7 @@ CREATE OR REPLACE VIEW v_ui_arc AS
     node_1,
     node_2,
     cat_arc.idval as arccat,
+    cat_mat.idval as matcat,
     value_state.idval as state,
     value_state_type.idval as state_type,
     arc.annotation,
@@ -104,6 +107,7 @@ CREATE OR REPLACE VIEW v_ui_arc AS
    FROM arc
      JOIN v_state_arc ON v_state_arc.arc_id::text = arc.arc_id::text
      LEFT JOIN cat_arc ON cat_arc.id=arc.arccat_id
+     LEFT JOIN cat_mat ON cat_mat.id=cat_arc.matcat_id
      LEFT JOIN value_state ON value_state.id=arc.state_id
      LEFT JOIN value_state_type ON value_state_type.id=arc.state_type_id
      LEFT JOIN dma ON dma.id=arc.dma_id

@@ -9,40 +9,17 @@ CREATE SEQUENCE urn_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-    
+   
+
 CREATE TABLE cat_mat (
-id serial NOT NULL,
-idval varchar(30)  ,
+id serial NOT NULL PRIMARY KEY,
+idval varchar(30) NOT NULL ,
 descript varchar(512)  ,
 feature_type varchar(30) ,
-link varchar(512)  ,
-CONSTRAINT cat_mat_arc_pkey PRIMARY KEY (id)
+link varchar(512) 
 );
 
 
-
-CATALOGOS DE GISWATER IGUAL QUE ESTAN
---------------------------------------
-CAT_OWNER,
-CAT_PAVEMENT,
-CAT_SOIL,
-CAT_USER,
-CAT_WORK,
-CAT_BUILDER
-
-
-
-
-CREATE TABLE cat_element (
-id serial NOT NULL,
-idval varchar (30) NOT NULL,
-cat_feature_id integer,
-matcat_id integer  ,
-descript varchar(512)  ,
-link varchar(512)  ,
-svg varchar(50)  ,
-active boolean
-);
 
 
 CREATE TABLE cat_arc (

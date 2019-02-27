@@ -12,7 +12,6 @@
 		element.element_id,
 		code,
 		elementcat_id,
-		cat_element.elementtype_id,
 		serial_number,
 		state_id,
 		state_type_id,
@@ -26,7 +25,8 @@
 		element.enddate,
 		ownercat_id,
 		rotation,
-		concat(element_type.link_path, element.link) AS link,
+		--concat(element_type.link_path, element.link) AS link,
+		element.link,
 		element.the_geom,
 		label_x,
 		label_y,
@@ -37,8 +37,7 @@
 		element.expl_id
 	FROM element
 	JOIN v_state_element ON element.element_id=v_state_element.element_id
-	JOIN cat_element ON element.element_id = cat_element.id
-	LEFT JOIN element_type ON cat_element.elementtype_id=element_type.id;
+	JOIN cat_element ON element.elementcat_id = cat_element.id;
 
 
 	drop view if exists v_ui_element_x_arc cascade; 
@@ -47,8 +46,8 @@
 	element_x_arc.id,
 	element_x_arc.arc_id,
 	element_x_arc.element_id,
-	element.elementcat_id,
-	cat_element.descript,
+	cat_element.idval AS elementcat,
+	cat_mat.idval as matcat,
 	element.num_elements,
 	element.state_id,
 	element.state_type_id,
@@ -62,6 +61,7 @@
 	FROM element_x_arc
 	JOIN element ON element.element_id=element_x_arc.element_id
 	LEFT JOIN cat_element ON cat_element.id=element.elementcat_id
+	LEFT JOIN cat_mat ON cat_mat.id = cat_element.matcat_id
 	JOIN selector_state ON element.state_id=selector_state.state_id
 	AND selector_state.cur_user = "current_user"()::text;
 
@@ -72,7 +72,8 @@
 	element_x_node.id,
 	element_x_node.node_id,
 	element_x_node.element_id,
-	element.elementcat_id,
+	cat_element.idval AS elementcat,
+	cat_mat.idval as matcat,
 	cat_element.descript,
 	element.num_elements,
 	element.state_id,
@@ -87,6 +88,7 @@
 	FROM element_x_node
 	JOIN element ON element.element_id = element_x_node.element_id
 	LEFT JOIN cat_element ON cat_element.id=element.elementcat_id
+	LEFT JOIN cat_mat ON cat_mat.id = cat_element.matcat_id
 	JOIN selector_state ON element.state_id=selector_state.state_id
 	AND selector_state.cur_user = "current_user"()::text;
 
@@ -96,7 +98,8 @@
 	SELECT 
 	element.element_id as id,
 	code,
-	cat_element.idval as elementcat_id,
+	cat_element.idval AS elementcat,
+	cat_mat.idval as matcat,
 	serial_number,
 	num_elements ,
     value_state.idval as state,
@@ -119,11 +122,12 @@
 	publish ,
 	inventory ,
 	exploitation.idval as expl,
-	feature_type ,
+	element.feature_type ,
 	element.tstamp
 	FROM element
 	JOIN v_state_element ON element.element_id=v_state_element.element_id
      LEFT JOIN cat_element ON cat_element.id=element.elementcat_id
+     LEFT JOIN cat_mat ON cat_mat.id = cat_element.matcat_id
      LEFT JOIN value_state ON value_state.id=element.state_id
      LEFT JOIN value_state_type ON value_state_type.id=element.state_type_id
      LEFT JOIN cat_builder ON cat_builder.id=element.buildercat_id

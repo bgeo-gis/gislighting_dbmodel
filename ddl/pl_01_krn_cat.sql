@@ -60,7 +60,6 @@ CREATE TABLE dma (
 id serial NOT NULL PRIMARY KEY,
 idval character varying(30),
 expl_id integer,
---macrodma_id integer,
 descript text,
 undelete boolean,
 the_geom public.geometry (MULTIPOLYGON, SRID_VALUE)
@@ -114,3 +113,14 @@ descript varchar(512)  ,
 link varchar(512)  ,
 CONSTRAINT cat_owner_pkey PRIMARY KEY (id)
 );
+
+CREATE TABLE "cat_pavement" (
+id serial NOT NULL,
+idval varchar (30) NOT NULL,
+"descript" text,
+"link" varchar(512)  ,
+"thickness" numeric(12,2) DEFAULT 0.00,
+"m2_cost" varchar (16),
+ CONSTRAINT cat_pavement_pkey PRIMARY KEY (id)
+ );
+ 

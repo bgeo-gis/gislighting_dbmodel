@@ -2,43 +2,16 @@
 SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 
-CREATE TABLE element_type (
-id serial NOT NULL,
-idval varchar(30) NOT NULL,
-active boolean,
-code_autofill boolean,
-descript text,
-link_path varchar(254),
-CONSTRAINT element_type_pkey PRIMARY KEY (id)
-);
-
-
-CREATE TABLE cat_mat_element (
-id serial NOT NULL,
-idval varchar(30),
-descript varchar(512),
-link varchar(512),
-CONSTRAINT cat_mat_element_pkey PRIMARY KEY (id)
-);
-
-
 CREATE TABLE cat_element (
-id serial NOT NULL,
-idval varchar(30)  NOT NULL,
-elementtype_id integer,
-matcat_id integer,
-geometry varchar(30),
-descript varchar(512),
-link varchar(512),
-brand varchar(30),
-type varchar(30),
-model varchar(30),
-svg varchar(50),
-active boolean,
-CONSTRAINT cat_element_pkey PRIMARY KEY (id)
+id serial NOT NULL PRIMARY KEY,
+idval varchar (30) NOT NULL,
+cat_feature_id integer,
+matcat_id integer  ,
+descript varchar(512)  ,
+link varchar(512)  ,
+svg varchar(50)  ,
+active boolean
 );
-
-
 
 CREATE TABLE element (
 element_id integer PRIMARY KEY DEFAULT nextval('SCHEMA_NAME.urn_id_seq'::regclass),
