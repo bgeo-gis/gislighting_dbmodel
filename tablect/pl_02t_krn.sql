@@ -34,6 +34,11 @@ ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_ownercat_id_fkey;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_expl_fkey ;
 ALTER TABLE arc DROP CONSTRAINT IF EXISTS arc_feature_type_check;
 
+ALTER TABLE cat_arc DROP CONSTRAINT IF EXISTS cat_arc_cat_feature_id_fkey;
+ALTER TABLE cat_arc DROP CONSTRAINT IF EXISTS  cat_arc_cat_mat_id_fkey;
+ALTER TABLE cat_node DROP CONSTRAINT IF EXISTS cat_node_cat_feature_id_fkey;
+ALTER TABLE cat_node DROP CONSTRAINT IF EXISTS  cat_node_cat_mat_id_fkey;
+
 --ADD CONSTRAINT
 ALTER TABLE node ADD CONSTRAINT node_nodecat_id_fkey FOREIGN KEY (nodecat_id) REFERENCES cat_node (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE node ADD CONSTRAINT node_arc_id_fkey FOREIGN KEY (arc_id) REFERENCES arc (arc_id) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -63,3 +68,9 @@ ALTER TABLE arc ADD CONSTRAINT arc_buildercat_id_fkey FOREIGN KEY (buildercat_id
 ALTER TABLE arc ADD CONSTRAINT arc_ownercat_id_fkey FOREIGN KEY (ownercat_id) REFERENCES cat_owner (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE arc ADD CONSTRAINT arc_expl_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 ALTER TABLE arc ADD CONSTRAINT arc_feature_type_check CHECK (feature_type::text = ANY (ARRAY['ARC'::character varying]::text[]));
+
+
+ALTER TABLE cat_arc ADD CONSTRAINT cat_arc_cat_feature_id_fkey FOREIGN KEY (cat_feature_id) REFERENCES cat_feature(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE cat_arc ADD CONSTRAINT cat_arc_cat_mat_id_fkey FOREIGN KEY (matcat_id) REFERENCES cat_mat(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE cat_node ADD CONSTRAINT cat_node_cat_feature_id_fkey FOREIGN KEY (cat_feature_id) REFERENCES cat_feature(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE cat_node ADD CONSTRAINT cat_node_cat_mat_id_fkey FOREIGN KEY (matcat_id) REFERENCES cat_mat(id) ON DELETE RESTRICT ON UPDATE CASCADE;

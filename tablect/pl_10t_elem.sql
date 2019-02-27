@@ -3,7 +3,7 @@
 SET search_path = SCHEMA_NAME, public, pg_catalog;
 
 --DROP CONSTRAINT
-ALTER TABLE cat_element DROP CONSTRAINT IF EXISTS cat_element_elementtype_id_fkey;
+
 ALTER TABLE cat_element DROP CONSTRAINT IF EXISTS cat_element_matcat_id_fkey;
 
 --ELEMENT
@@ -15,6 +15,7 @@ ALTER TABLE element DROP CONSTRAINT IF EXISTS element_buildercat_id_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_ownercat_id_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_feature_type_fkey;
 ALTER TABLE element DROP CONSTRAINT IF EXISTS element_state_type_id_fkey;
+ALTER TABLE element DROP CONSTRAINT IF EXISTS element_feature_type_check;
 
 ALTER TABLE element_x_arc DROP CONSTRAINT IF EXISTS element_x_arc_element_id_fkey;
 ALTER TABLE element_x_arc DROP CONSTRAINT IF EXISTS element_x_arc_arc_id_fkey;
@@ -22,11 +23,12 @@ ALTER TABLE element_x_arc DROP CONSTRAINT IF EXISTS element_x_arc_arc_id_fkey;
 ALTER TABLE element_x_node DROP CONSTRAINT IF EXISTS element_x_node_element_id_fkey;
 ALTER TABLE element_x_node DROP CONSTRAINT IF EXISTS element_x_node_node_id_fkey;
 
+ALTER TABLE cat_element DROP CONSTRAINT IF EXISTS cat_element_cat_feature_id_fkey;
+ALTER TABLE cat_element DROP CONSTRAINT IF EXISTS  cat_element_cat_mat_id_fkey;
 
 
 --ADD CONSTRAINT
-ALTER TABLE cat_element ADD CONSTRAINT cat_element_elementtype_id_fkey FOREIGN KEY (elementtype_id) REFERENCES element_type (id) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE cat_element ADD CONSTRAINT cat_element_matcat_id_fkey FOREIGN KEY (matcat_id) REFERENCES cat_mat_element (id) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE cat_element ADD CONSTRAINT cat_element_matcat_id_fkey FOREIGN KEY (matcat_id) REFERENCES cat_mat (id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --ELEMENT
 ALTER TABLE element ADD CONSTRAINT element_elementcat_id_fkey FOREIGN KEY (elementcat_id) REFERENCES cat_element (id) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -43,3 +45,6 @@ ALTER TABLE element_x_arc ADD CONSTRAINT element_x_arc_arc_id_fkey FOREIGN KEY (
 
 ALTER TABLE element_x_node ADD CONSTRAINT element_x_node_element_id_fkey FOREIGN KEY (element_id) REFERENCES element (element_id) ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE element_x_node ADD CONSTRAINT element_x_node_node_id_fkey FOREIGN KEY (node_id) REFERENCES node (node_id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE cat_element ADD CONSTRAINT cat_element_cat_feature_id_fkey FOREIGN KEY (cat_feature_id) REFERENCES cat_feature(id) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE cat_element ADD CONSTRAINT cat_element_cat_mat_id_fkey FOREIGN KEY (matcat_id) REFERENCES cat_mat(id) ON DELETE RESTRICT ON UPDATE CASCADE;
