@@ -14,6 +14,9 @@ ALTER TABLE cat_feature DROP CONSTRAINT IF EXISTS cat_feature_type_check;
 ALTER TABLE cat_feature DROP CONSTRAINT IF EXISTS cat_feature_system_id_check;
 
 ALTER TABLE cat_addfields_typevalue DROP CONSTRAINT IF EXISTS cat_addfields_typevalue_typevalue_fkey;
+
+ALTER TABLE cat_feature DROP CONSTRAINT IF EXISTS cat_feature_type_check;
+
 --ADD
 
 ALTER TABLE exploitation_x_user ADD CONSTRAINT exploitation_x_user_expl_id_fkey FOREIGN KEY (expl_id) REFERENCES exploitation (id) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -33,3 +36,6 @@ ALTER TABLE cat_addfields_typevalue ADD CONSTRAINT cat_addfields_typevalue_typev
 --new
 ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_type_check CHECK (feature_type IN ('ARC', 'NODE','ELEMENT'));
 ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (system_id IN ('REGISTER', 'LAMPPOST', 'LINE', 'LIGHTPOINT', 'PANELBOARD','ELEMENT'));
+
+ALTER TABLE cat_mat
+  ADD CONSTRAINT cat_mat_type_check CHECK (feature_type::text = ANY (ARRAY['ARC'::character varying, 'NODE'::character varying, 'ELEMENT'::character varying]::text[]));

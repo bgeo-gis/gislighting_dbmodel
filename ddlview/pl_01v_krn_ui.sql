@@ -68,6 +68,8 @@ CREATE OR REPLACE VIEW v_ui_arc AS
     node_1,
     node_2,
     cat_arc.idval as arccat,
+    cat_arc.nlines,
+    cat_arc.area,
     cat_mat.idval as matcat,
     value_state.idval as state,
     value_state_type.idval as state_type,

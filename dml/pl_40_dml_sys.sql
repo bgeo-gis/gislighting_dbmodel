@@ -6,6 +6,9 @@ INSERT INTO config_param_system VALUES (5, 'state_topocontrol', 'true', 'boolean
 INSERT INTO config_param_system VALUES (4, 'edit_topocontrol_dsbl_error', 'true', 'boolean', 'edit', NULL, NULL, NULL, 'Topocontrol error:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (6, 'node_search_streetaxis', '5', 'numeric', 'edit', NULL, NULL, NULL, 'Node search streetaxis:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (7, 'light_separate_distance', '0.7', 'numeric', 'edit', NULL, NULL, NULL, 'Light separate distance:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (8, 'sys_role_permissions', 'TRUE', 'boolean', 'admin', NULL, NULL, NULL, 'System role permissions:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (9, 'sys_api_service', 'FALSE', 'boolean', 'admin', NULL, NULL, NULL, 'System API service:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (10, 'api_publish_user', NULL 'text', 'admin', NULL, NULL, NULL, 'API publish user:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 
@@ -97,7 +100,6 @@ INSERT INTO audit_cat_table VALUES ('exploitation', NULL, NULL, 'role_admin', NU
 INSERT INTO audit_cat_table VALUES ('element', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('element_x_node', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('element_x_arc', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
-INSERT INTO audit_cat_table VALUES ('element_type', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('doc_x_visit', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('doc_x_node', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('doc_x_arc', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
@@ -110,9 +112,7 @@ INSERT INTO audit_cat_table VALUES ('cat_user', NULL, NULL, 'role_edit', NULL, N
 INSERT INTO audit_cat_table VALUES ('cat_soil', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('cat_owner', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('cat_node', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
-INSERT INTO audit_cat_table VALUES ('cat_mat_node', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
-INSERT INTO audit_cat_table VALUES ('cat_mat_element', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
-INSERT INTO audit_cat_table VALUES ('cat_mat_arc', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
+INSERT INTO audit_cat_table VALUES ('cat_mat', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('cat_feature', NULL, NULL, 'role_admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('cat_builder', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
 INSERT INTO audit_cat_table VALUES ('cat_element', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, false);
