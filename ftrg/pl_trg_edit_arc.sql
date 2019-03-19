@@ -23,7 +23,7 @@ DECLARE
 	v_parameter_name text;
 	v_new_value_param text;
 	v_old_value_param text;
-
+	v_feature_search_streetaxis double precision;
 
 BEGIN
 
@@ -32,6 +32,7 @@ BEGIN
 		
 	--Get data from config table
 	promixity_buffer_aux = (SELECT "value" FROM config_param_system WHERE "parameter"='proximity_buffer');
+	v_feature_search_streetaxis = (SELECT "value" FROM config_param_system WHERE "parameter"='feature_search_streetaxis');
 
 -- INSERT
 
@@ -79,13 +80,6 @@ BEGIN
             END IF;            
         END IF;
 		
-		
-		--Inventory
-		IF (NEW.inventory IS NULL) THEN
-			NEW.inventory :='TRUE';
-		END IF; 
-		
-		
 		-- Exploitation
 			IF (NEW.expl_id IS NULL) THEN
 				NEW.expl_id := (SELECT id FROM exploitation WHERE ST_DWithin(NEW.the_geom, exploitation.the_geom,0.001) LIMIT 1);
@@ -104,16 +98,22 @@ BEGIN
 				END IF;	
 			END IF;
 		
-			
+		--Streetaxis
+		IF (NEW.streetaxis_id IS NULL) THEN
+			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
+			WHERE ST_DWithin(NEW.the_geom, ext_streetaxis.the_geom,v_feature_search_streetaxis) LIMIT 1);
+		END IF; 
+
 		-- FEATURE INSERT      
-		INSERT INTO arc (arc_id, code, node_1,node_2, arccat_id, state_id, state_type_id, annotation, observ,custom_length,dma_id, soilcat_id, category_type_id, location_type_id,
+		INSERT INTO arc (arc_id, code, node_1,node_2, arccat_id, state_id, state_type_id, annotation, observ,custom_length,dma_id, soilcat_id,
 			workcat_id, workcat_id_end, buildercat_id, builtdate,enddate, ownercat_id, muni_id, postcode, streetaxis_id, postnumber, postcomplement,
-			streetaxis2_id,postnumber2, postcomplement2,descript,link,verified_id,the_geom,undelete,label_x,label_y,label_rotation,  publish, inventory, expl_id,
-			displace_style)
-			VALUES (NEW.arc_id, NEW.code, null, null, NEW.arccat_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, NEW.custom_length,NEW.dma_id, 
-			NEW.soilcat_id, NEW.category_type_id, NEW.location_type_id, NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate,NEW.enddate, 
-			NEW.ownercat_id,NEW.muni_id, NEW.postcode, NEW.streetaxis_id,NEW.postnumber, NEW.postcomplement, NEW.streetaxis2_id, NEW.postnumber2, NEW.postcomplement2, 
-			NEW.descript,NEW.link, NEW.verified_id, NEW.the_geom,NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.publish, NEW.inventory, NEW.expl_id,
+			streetaxis2_id,postnumber2, postcomplement2,descript,link,the_geom,undelete,label_x,label_y,label_rotation,  publish,
+			expl_id,displace_style)
+			VALUES (NEW.arc_id, NEW.code, null, null, NEW.arccat_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, 
+			NEW.custom_length,NEW.dma_id, NEW.soilcat_id,NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate,
+			NEW.enddate, NEW.ownercat_id,NEW.muni_id, NEW.postcode, NEW.streetaxis_id,NEW.postnumber, NEW.postcomplement, 
+			NEW.streetaxis2_id, NEW.postnumber2, NEW.postcomplement2, NEW.descript,NEW.link, NEW.the_geom,
+			NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.publish, NEW.expl_id,
 			NEW.displace_style);
 					
 
@@ -164,15 +164,20 @@ BEGIN
 							
 		END IF;
 
+		--Streetaxis
+		IF (NEW.streetaxis_id IS NULL) THEN
+			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
+			WHERE ST_DWithin(NEW.the_geom, ext_streetaxis.the_geom,v_feature_search_streetaxis) LIMIT 1);
+		END IF; 
 		
 		UPDATE arc
-		SET code=NEW.code, arccat_id=NEW.arccat_id, state_type_id=NEW.state_type_id, annotation= NEW.annotation, "observ"=NEW.observ, custom_length=NEW.custom_length, 
-		dma_id=NEW.dma_id, soilcat_id=NEW.soilcat_id, category_type_id=NEW.category_type_id,location_type_id=NEW.location_type_id,
-		workcat_id=NEW.workcat_id, workcat_id_end=NEW.workcat_id_end, buildercat_id=NEW.buildercat_id, builtdate=NEW.builtdate, enddate=NEW.enddate,
+		SET code=NEW.code, arccat_id=NEW.arccat_id, state_type_id=NEW.state_type_id, annotation= NEW.annotation, "observ"=NEW.observ, 
+		custom_length=NEW.custom_length, dma_id=NEW.dma_id, soilcat_id=NEW.soilcat_id, workcat_id=NEW.workcat_id, 
+		workcat_id_end=NEW.workcat_id_end, buildercat_id=NEW.buildercat_id, builtdate=NEW.builtdate, enddate=NEW.enddate,
 		ownercat_id=NEW.ownercat_id, muni_id=NEW.muni_id, streetaxis_id=NEW.streetaxis_id,streetaxis2_id=NEW.streetaxis2_id,postcode=NEW.postcode,
-		postnumber=NEW.postnumber, postnumber2=NEW.postnumber2,descript=NEW.descript, verified_id=NEW.verified_id, undelete=NEW.undelete, 
+		postnumber=NEW.postnumber, postnumber2=NEW.postnumber2,descript=NEW.descript, undelete=NEW.undelete, 
 		label_x=NEW.label_x, the_geom=NEW.the_geom, postcomplement=NEW.postcomplement, postcomplement2=NEW.postcomplement2,label_y=NEW.label_y,
-		label_rotation=NEW.label_rotation, publish=NEW.publish, inventory=NEW.inventory, expl_id=NEW.expl_id,link=NEW.link,
+		label_rotation=NEW.label_rotation, publish=NEW.publish, expl_id=NEW.expl_id,link=NEW.link,
 		displace_style=NEW.displace_style
 		WHERE arc_id=OLD.arc_id;
 

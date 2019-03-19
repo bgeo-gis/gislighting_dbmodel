@@ -8,7 +8,7 @@ INSERT INTO config_param_system VALUES (6, 'node_search_streetaxis', '5', 'numer
 INSERT INTO config_param_system VALUES (7, 'light_separate_distance', '0.7', 'numeric', 'edit', NULL, NULL, NULL, 'Light separate distance:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (8, 'sys_role_permissions', 'TRUE', 'boolean', 'admin', NULL, NULL, NULL, 'System role permissions:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO config_param_system VALUES (9, 'sys_api_service', 'FALSE', 'boolean', 'admin', NULL, NULL, NULL, 'System API service:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO config_param_system VALUES (10, 'api_publish_user', NULL 'text', 'admin', NULL, NULL, NULL, 'API publish user:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO config_param_system VALUES (10, 'api_publish_user', NULL, 'text', 'admin', NULL, NULL, NULL, 'API publish user:', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 

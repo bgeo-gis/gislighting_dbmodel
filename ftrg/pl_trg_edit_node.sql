@@ -23,6 +23,7 @@ DECLARE
 	v_parameter_name text;
 	v_new_value_param text;
 	v_old_value_param text;
+	v_feature_search_streetaxis double precision;
 
 
 BEGIN
@@ -32,6 +33,7 @@ BEGIN
 		
 	--Get data from config table
 	promixity_buffer_aux = (SELECT "value" FROM config_param_system WHERE "parameter"='proximity_buffer');
+	v_feature_search_streetaxis = (SELECT "value" FROM config_param_system WHERE "parameter"='feature_search_streetaxis');
 
 -- INSERT
 
@@ -79,13 +81,6 @@ BEGIN
             END IF;            
         END IF;
 		
-		
-		--Inventory
-		IF (NEW.inventory IS NULL) THEN
-			NEW.inventory :='TRUE';
-		END IF; 
-		
-		
 		-- Exploitation
 			IF (NEW.expl_id IS NULL) THEN
 				NEW.expl_id := (SELECT id FROM exploitation WHERE ST_DWithin(NEW.the_geom, exploitation.the_geom,0.001) LIMIT 1);
@@ -95,7 +90,7 @@ BEGIN
 				END IF;		
 			END IF;
 
-
+		--Municipality
 			IF (NEW.muni_id IS NULL) THEN
 				NEW.muni_id := (SELECT id FROM ext_municipality WHERE ST_DWithin(NEW.the_geom, ext_municipality.the_geom,0.001) LIMIT 1);
 				IF (NEW.muni_id IS NULL) THEN
@@ -104,15 +99,23 @@ BEGIN
 				END IF;	
 			END IF;
 		
+		--Streetaxis
+		IF (NEW.streetaxis_id IS NULL) THEN
+			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
+			WHERE ST_DWithin(NEW.the_geom, ext_streetaxis.the_geom,v_feature_search_streetaxis) LIMIT 1);
+		END IF; 
+
 			
 		-- FEATURE INSERT      
-		INSERT INTO node (node_id, code, nodecat_id, arc_id, parent_id, state_id, state_type_id, annotation, observ, dma_id, soilcat_id, category_type_id, location_type_id, 
-			workcat_id, workcat_id_end,buildercat_id, builtdate, enddate, ownercat_id, muni_id, streetaxis_id, streetaxis2_id, postcode, postnumber, postnumber2, postcomplement, 
-			postcomplement2, descript, rotation,verified_id,undelete,label_x,label_y,label_rotation, expl_id, publish, inventory, the_geom) 
-		VALUES (NEW.node_id, NEW.code,  NEW.nodecat_id, NEW.arc_id, NEW.parent_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, NEW.dma_id,
-		NEW.soilcat_id, NEW.category_type_id, NEW.location_type_id,NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate, NEW.enddate, NEW.ownercat_id, 
-		NEW.muni_id, NEW.streetaxis_id, NEW.streetaxis2_id, NEW.postcode,NEW.postnumber,NEW.postnumber2, NEW.postcomplement, NEW.postcomplement2, NEW.descript, 
-		NEW.rotation, NEW.verified_id, NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.expl_id, NEW.publish, NEW.inventory, NEW.the_geom);
+		INSERT INTO node (node_id, code, nodecat_id, arc_id, parent_id, state_id, state_type_id, annotation, observ, dma_id, soilcat_id, 
+			workcat_id, workcat_id_end,buildercat_id, builtdate, enddate, ownercat_id, muni_id, streetaxis_id, streetaxis2_id, postcode, 
+			postnumber, postnumber2, postcomplement, postcomplement2, descript, rotation,undelete,label_x,
+			label_y,label_rotation, expl_id, publish, the_geom) 
+		VALUES (NEW.node_id, NEW.code,  NEW.nodecat_id, NEW.arc_id, NEW.parent_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, 
+		NEW.dma_id,NEW.soilcat_id, NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate, NEW.enddate, NEW.ownercat_id, 
+		NEW.muni_id, NEW.streetaxis_id, NEW.streetaxis2_id, NEW.postcode,NEW.postnumber,NEW.postnumber2, NEW.postcomplement, NEW.postcomplement2, 
+		NEW.descript,NEW.rotation, NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.expl_id, NEW.publish, 
+		NEW.the_geom);
 		
 
 		-- man addfields insert
@@ -166,15 +169,21 @@ BEGIN
 			   UPDATE node SET rotation=NEW.rotation WHERE node_id = OLD.node_id;
 		END IF;	
 
-		
+		--Streetaxis
+		IF (NEW.streetaxis_id IS NULL) THEN
+			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
+			WHERE ST_DWithin(NEW.the_geom, ext_streetaxis.the_geom,v_feature_search_streetaxis) LIMIT 1);
+		END IF; 
+
 		UPDATE node 
 		SET code=NEW.code, nodecat_id=NEW.nodecat_id, arc_id=NEW.arc_id, parent_id=NEW.parent_id,
 		state_type_id=NEW.state_type_id, annotation=NEW.annotation, "observ"=NEW."observ", dma_id=NEW.dma_id, soilcat_id=NEW.soilcat_id, 
-		category_type_id=NEW.category_type_id, location_type_id=NEW.location_type_id, workcat_id=NEW.workcat_id, workcat_id_end=NEW.workcat_id_end,  
-		buildercat_id=NEW.buildercat_id,builtdate=NEW.builtdate, enddate=NEW.enddate, ownercat_id=NEW.ownercat_id, muni_id=NEW.muni_id, streetaxis_id=NEW.streetaxis_id, 
-		postcomplement=NEW.postcomplement, postcomplement2=NEW.postcomplement2, streetaxis2_id=NEW.streetaxis2_id, postcode=NEW.postcode,postnumber=NEW.postnumber,
-		postnumber2=NEW.postnumber2, descript=NEW.descript, verified_id=NEW.verified_id, undelete=NEW.undelete, label_x=NEW.label_x, label_y=NEW.label_y, 
-		label_rotation=NEW.label_rotation, publish=NEW.publish, inventory=NEW.inventory, expl_id=NEW.expl_id
+		workcat_id=NEW.workcat_id, workcat_id_end=NEW.workcat_id_end, buildercat_id=NEW.buildercat_id,builtdate=NEW.builtdate, 
+		enddate=NEW.enddate, ownercat_id=NEW.ownercat_id, muni_id=NEW.muni_id, streetaxis_id=NEW.streetaxis_id, 
+		postcomplement=NEW.postcomplement, postcomplement2=NEW.postcomplement2, streetaxis2_id=NEW.streetaxis2_id, 
+		postcode=NEW.postcode,postnumber=NEW.postnumber,postnumber2=NEW.postnumber2, descript=NEW.descript,
+		undelete=NEW.undelete, label_x=NEW.label_x, label_y=NEW.label_y, 
+		label_rotation=NEW.label_rotation, publish=NEW.publish, expl_id=NEW.expl_id
 		WHERE node_id = OLD.node_id;
 		
 
