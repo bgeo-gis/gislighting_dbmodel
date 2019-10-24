@@ -2,14 +2,16 @@
 SET search_path = "SCHEMA_NAME", public, pg_catalog;
 
 DROP VIEW IF EXISTS ve_dma CASCADE;
-CREATE VIEW ve_dma AS SELECT
-    id,
-    idval,
-    descript,
-    the_geom,
-    undelete,
+CREATE OR REPLACE VIEW pl.ve_dma AS 
+ SELECT dma.id,
+    dma.idval,
+    dma.descript,
+    dma.the_geom,
+    dma.undelete,
     dma.expl_id
-    FROM dma;
+   FROM pl.selector_expl,pl.dma
+   WHERE selector_expl.expl_id=dma.expl_id AND selector_expl.cur_user = "current_user"()::text;
+
 
 CREATE OR REPLACE VIEW v_state_arc AS 
  SELECT arc.arc_id
@@ -67,9 +69,12 @@ inventory,
 hemisphere, 
 expl_id, 
 feature_type, 
-tstamp
-  FROM node
-  JOIN v_state_node ON v_state_node.node_id::text = node.node_id::text;
+tstamp,
+district_id
+FROM selector_expl,node
+JOIN v_state_node ON v_state_node.node_id::text = node.node_id::text
+WHERE node.expl_id = selector_expl.expl_id AND selector_expl.cur_user = "current_user"()::text;
+
 
 DROP VIEW IF EXISTS ve_arc cascade;
 CREATE OR REPLACE VIEW ve_arc AS 
@@ -110,15 +115,18 @@ arc.undelete,
 arc.label_x, 
 arc.label_y, 
 arc.label_rotation, 
-displace_style,
+arc.displace_style,
 arc.publish, 
 arc.expl_id, 
 arc.feature_type, 
-arc.tstamp
-  FROM arc
+arc.tstamp,
+arc.district_id
+  FROM selector_expl, arc
   JOIN v_state_arc ON v_state_arc.arc_id::text = arc.arc_id::text
   LEFT JOIN node n1 ON n1.node_id=arc.node_1 
   LEFT JOIN node n2 ON n2.node_id=arc.node_2;
+ WHERE arc.expl_id = selector_expl.expl_id AND selector_expl.cur_user = "current_user"()::text;
+
 
 CREATE OR REPLACE VIEW SCHEMA_NAME.ve_node_quadre AS 
  SELECT ve_node.node_id,
@@ -139,6 +147,7 @@ CREATE OR REPLACE VIEW SCHEMA_NAME.ve_node_quadre AS
     ve_node.enddate,
     ve_node.ownercat_id,
     ve_node.muni_id,
+    ve_node.district_id,
     ve_node.postcode,
     ve_node.streetaxis_id,
     ve_node.postnumber,
@@ -214,6 +223,7 @@ CREATE OR REPLACE VIEW ve_node_arqueta AS
     ve_node.enddate,
     ve_node.ownercat_id,
     ve_node.muni_id,
+    ve_node.district_id,
     ve_node.postcode,
     ve_node.streetaxis_id,
     ve_node.postnumber,
@@ -263,6 +273,7 @@ CREATE OR REPLACE VIEW ve_node_columna AS
     ve_node.enddate,
     ve_node.ownercat_id,
     ve_node.muni_id,
+    ve_node.district_id,
     ve_node.postcode,
     ve_node.streetaxis_id,
     ve_node.postnumber,
@@ -336,6 +347,7 @@ CREATE OR REPLACE VIEW ve_node_punto_luz AS
     ve_node.enddate,
     ve_node.ownercat_id,
     ve_node.muni_id,
+    ve_node.district_id,
     ve_node.postcode,
     ve_node.streetaxis_id,
     ve_node.postnumber,
@@ -388,60 +400,68 @@ CREATE OR REPLACE VIEW ve_node_punto_luz AS
                     light_type text, light_form text, color_temperature text, ballast_code text, light_height numeric, initial_flow numeric)) a 
                     ON a.feature_id::text = ve_node.node_id::text
     LEFT JOIN SCHEMA_NAME.cat_node ON ve_node.nodecat_id = cat_node.id WHERE cat_node.cat_feature_id::text = 4::text;
+-- View: ve_arc_linia
 
-DROP VIEW IF EXISTS ve_arc_linia;
+-- DROP VIEW ve_arc_linia;
+
 CREATE OR REPLACE VIEW ve_arc_linia AS 
-SELECT 
-ve_arc.arc_id, 
-ve_arc.code, 
-node_1,
-code_node_1,
-node_2,
-code_node_2,  
-arccat_id, 
-cat_arc.section,
-state_id, 
-state_type_id, 
-annotation, 
-observ, 
-sys_length,
-custom_length, 
-dma_id, 
-soilcat_id, 
-workcat_id, 
-workcat_id_end, 
-buildercat_id, 
-builtdate, 
-enddate, 
-ownercat_id,
-muni_id, 
-postcode, 
-streetaxis_id, 
-postnumber, 
-postcomplement, 
-streetaxis2_id, 
-postnumber2, 
-postcomplement2, 
-ve_arc.descript, 
-ve_arc.link, 
-the_geom, 
-undelete, 
-label_x, 
-label_y, 
-label_rotation, 
-displace_style, 
-publish, 
-expl_id,
-a.panelboard,
-a.line,
-a.location
-    FROM SCHEMA_NAME.ve_arc
-    LEFT JOIN ( SELECT ct.feature_id,
+ SELECT ve_arc.arc_id,
+    ve_arc.code,
+    ve_arc.node_1,
+    ve_arc.code_node_1,
+    cat_node_1.idval AS nodecat_1,
+    ve_arc.node_2,
+    ve_arc.code_node_2,
+    cat_node_2.idval AS nodecat_2,
+    ve_arc.arccat_id,
+    cat_arc.section,
+    ve_arc.state_id,
+    ve_arc.state_type_id,
+    ve_arc.annotation,
+    ve_arc.observ,
+    ve_arc.sys_length,
+    ve_arc.custom_length,
+    ve_arc.dma_id,
+    ve_arc.soilcat_id,
+    ve_arc.workcat_id,
+    ve_arc.workcat_id_end,
+    ve_arc.buildercat_id,
+    ve_arc.builtdate,
+    ve_arc.enddate,
+    ve_arc.ownercat_id,
+    ve_arc.muni_id,
+    ve_arc.district_id,
+    ve_arc.postcode,
+    ve_arc.streetaxis_id,
+    ve_arc.postnumber,
+    ve_arc.postcomplement,
+    ve_arc.streetaxis2_id,
+    ve_arc.postnumber2,
+    ve_arc.postcomplement2,
+    ve_arc.descript,
+    ve_arc.link,
+    ve_arc.the_geom,
+    ve_arc.undelete,
+    ve_arc.label_x,
+    ve_arc.label_y,
+    ve_arc.label_rotation,
+    ve_arc.disce_style,
+    ve_arc.publish,
+    ve_arc.expl_id,
+    a.panelboard,
+    a.line,
+    a.location
+   FROM ve_arc
+     LEFT JOIN ( SELECT ct.feature_id,
             ct.panelboard,
             ct.line,
             ct.location
-           FROM public.crosstab('SELECT feature_id, parameter_id, value_param
-                    FROM SCHEMA_NAME.man_addfields_value JOIN SCHEMA_NAME.man_addfields_parameter on man_addfields_parameter.id=parameter_id where cat_feature_id=5
-                    ORDER  BY 1,2'::text, ' VALUES (''37''),(''38''),(''39'')'::text) ct(feature_id character varying, panelboard text, line text,location text)) a 
-                    ON a.feature_id::text = ve_arc.arc_id::text
-    LEFT JOIN SCHEMA_NAME.cat_arc ON ve_arc.arccat_id = cat_arc.id WHERE cat_arc.cat_feature_id::text = 5::text;
+           FROM crosstab('SELECT feature_id, parameter_id, value_param
+                    FROM man_addfields_value JOIN man_addfields_parameter on man_addfields_parameter.id=parameter_id where cat_feature_id=5
+                    ORDER  BY 1,2'::text, ' VALUES (''37''),(''38''),(''39'')'::text) ct(feature_id character varying, panelboard text, line text, location text)) a ON a.feature_id::text = ve_arc.arc_id::text
+     LEFT JOIN cat_arc ON ve_arc.arccat_id = cat_arc.id
+     LEFT JOIN node node_type_1 ON node_type_1.node_id = ve_arc.node_1
+     LEFT JOIN cat_node cat_node_1 ON node_type_1.nodecat_id = cat_node_1.id
+     LEFT JOIN node node_type_2 ON node_type_2.node_id = ve_arc.node_2
+     LEFT JOIN cat_node cat_node_2 ON node_type_2.nodecat_id = cat_node_2.id
+  WHERE cat_arc.cat_feature_id::text = 5::text;

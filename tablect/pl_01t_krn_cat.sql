@@ -30,12 +30,11 @@ ALTER TABLE value_state_type ADD CONSTRAINT value_state_type_state_id_fkey FOREI
 
 ALTER TABLE cat_addfields_typevalue ADD CONSTRAINT cat_addfields_typevalue_typevalue_fkey FOREIGN KEY (typevalue) REFERENCES man_addfields_parameter (id) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-
-
 --------------
 --new
 ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_type_check CHECK (feature_type IN ('ARC', 'NODE','ELEMENT'));
-ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (system_id IN ('REGISTER', 'LAMPPOST', 'LINE', 'LIGHTPOINT', 'PANELBOARD','ELEMENT'));
+ALTER TABLE cat_feature ADD CONSTRAINT cat_feature_system_id_check CHECK (system_id IN ('REGISTER', 'LAMPPOST', 'LINE', 'LIGHTPOINT', 'PANELBOARD','ELEMENT',
+'SEMAPHORE','POST_SEMAPHORE', 'REGISTER_SEMAPHORE', 'LINE_SEMAPHORE', 'CONTROLLER_SEMAPHORE' ));
 
 ALTER TABLE cat_mat
   ADD CONSTRAINT cat_mat_type_check CHECK (feature_type::text = ANY (ARRAY['ARC'::character varying, 'NODE'::character varying, 'ELEMENT'::character varying]::text[]));

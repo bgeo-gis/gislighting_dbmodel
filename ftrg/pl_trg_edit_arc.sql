@@ -91,13 +91,21 @@ BEGIN
 
 
 			IF (NEW.muni_id IS NULL) THEN
-				NEW.muni_id := (SELECT id FROM ext_municipality WHERE ST_DWithin(NEW.the_geom, ext_municipality.the_geom,0.001) LIMIT 1);
+				NEW.muni_id := (SELECT muni_id FROM ext_municipality WHERE ST_DWithin(NEW.the_geom, ext_municipality.the_geom,0.001) LIMIT 1);
 				IF (NEW.muni_id IS NULL) THEN
 					--PERFORM audit_function(2024,1318,NEW.arc_id);
 					raise notice 'no municipality';
 				END IF;	
 			END IF;
-		
+
+			IF (NEW.district_id IS NULL) THEN
+				NEW.district_id := (SELECT district_id FROM ext_district WHERE ST_DWithin(NEW.the_geom, ext_district.the_geom,0.001) LIMIT 1);
+				IF (NEW.district_id IS NULL) THEN
+					--PERFORM audit_function(2024,1318,NEW.arc_id);
+					raise notice 'no district';
+				END IF;	
+			END IF;
+
 		--Streetaxis
 		IF (NEW.streetaxis_id IS NULL) THEN
 			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
@@ -108,13 +116,13 @@ BEGIN
 		INSERT INTO arc (arc_id, code, node_1,node_2, arccat_id, state_id, state_type_id, annotation, observ,custom_length,dma_id, soilcat_id,
 			workcat_id, workcat_id_end, buildercat_id, builtdate,enddate, ownercat_id, muni_id, postcode, streetaxis_id, postnumber, postcomplement,
 			streetaxis2_id,postnumber2, postcomplement2,descript,link,the_geom,undelete,label_x,label_y,label_rotation,  publish,
-			expl_id,displace_style)
+			expl_id,displace_style,district_id)
 			VALUES (NEW.arc_id, NEW.code, null, null, NEW.arccat_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, 
 			NEW.custom_length,NEW.dma_id, NEW.soilcat_id,NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate,
 			NEW.enddate, NEW.ownercat_id,NEW.muni_id, NEW.postcode, NEW.streetaxis_id,NEW.postnumber, NEW.postcomplement, 
 			NEW.streetaxis2_id, NEW.postnumber2, NEW.postcomplement2, NEW.descript,NEW.link, NEW.the_geom,
 			NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.publish, NEW.expl_id,
-			NEW.displace_style);
+			NEW.displace_style,NEW.district_id);
 					
 
 
@@ -178,7 +186,7 @@ BEGIN
 		postnumber=NEW.postnumber, postnumber2=NEW.postnumber2,descript=NEW.descript, undelete=NEW.undelete, 
 		label_x=NEW.label_x, the_geom=NEW.the_geom, postcomplement=NEW.postcomplement, postcomplement2=NEW.postcomplement2,label_y=NEW.label_y,
 		label_rotation=NEW.label_rotation, publish=NEW.publish, expl_id=NEW.expl_id,link=NEW.link,
-		displace_style=NEW.displace_style
+		displace_style=NEW.displace_style, district_id=NEW.district_id
 		WHERE arc_id=OLD.arc_id;
 
 		-- man addfields update

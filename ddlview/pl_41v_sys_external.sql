@@ -28,3 +28,14 @@ the_geom,
 ext_address.expl_id
 FROM ext_address;
 
+
+
+
+DROP VIEW IF EXISTS v_ext_district CASCADE;
+CREATE OR REPLACE VIEW v_ext_district AS 
+ SELECT district.district_id,
+    district.name,
+    district.muni_id,
+    district.observ,
+    district.the_geom
+   FROM district;

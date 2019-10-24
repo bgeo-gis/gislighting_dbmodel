@@ -55,3 +55,13 @@ streetaxis_id integer,
 the_geom geometry(Point,SRID_VALUE),
 expl_id integer
   );
+
+
+CREATE TABLE ext_district(
+district_id integer PRIMARY KEY,
+name text,
+muni_id integer NOT NULL,
+observ text,
+active boolean,
+the_geom public.geometry(MultiPolygon,25831));
+

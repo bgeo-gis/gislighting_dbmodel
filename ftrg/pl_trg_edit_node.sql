@@ -92,13 +92,22 @@ BEGIN
 
 		--Municipality
 			IF (NEW.muni_id IS NULL) THEN
-				NEW.muni_id := (SELECT id FROM ext_municipality WHERE ST_DWithin(NEW.the_geom, ext_municipality.the_geom,0.001) LIMIT 1);
+				NEW.muni_id := (SELECT muni_id FROM ext_municipality WHERE ST_DWithin(NEW.the_geom, ext_municipality.the_geom,0.001) LIMIT 1);
 				IF (NEW.muni_id IS NULL) THEN
 					--PERFORM audit_function(2024,1318,NEW.node_id);
 					raise notice 'no municipality';
 				END IF;	
 			END IF;
-		
+
+		--District
+			IF (NEW.district_id IS NULL) THEN
+				NEW.district_id := (SELECT district_id FROM ext_district WHERE ST_DWithin(NEW.the_geom, ext_district.the_geom,0.001) LIMIT 1);
+				IF (NEW.district_id IS NULL) THEN
+					--PERFORM audit_function(2024,1318,NEW.node_id);
+					raise notice 'no district';
+				END IF;	
+			END IF;
+
 		--Streetaxis
 		IF (NEW.streetaxis_id IS NULL) THEN
 			NEW.streetaxis_id :=(SELECT id FROM ext_streetaxis 
@@ -110,12 +119,12 @@ BEGIN
 		INSERT INTO node (node_id, code, nodecat_id, arc_id, parent_id, state_id, state_type_id, annotation, observ, dma_id, soilcat_id, 
 			workcat_id, workcat_id_end,buildercat_id, builtdate, enddate, ownercat_id, muni_id, streetaxis_id, streetaxis2_id, postcode, 
 			postnumber, postnumber2, postcomplement, postcomplement2, descript, rotation,undelete,label_x,
-			label_y,label_rotation, expl_id, publish, the_geom) 
+			label_y,label_rotation, expl_id, publish, the_geom,district_id) 
 		VALUES (NEW.node_id, NEW.code,  NEW.nodecat_id, NEW.arc_id, NEW.parent_id, NEW.state_id, NEW.state_type_id, NEW.annotation, NEW.observ, 
 		NEW.dma_id,NEW.soilcat_id, NEW.workcat_id, NEW.workcat_id_end, NEW.buildercat_id, NEW.builtdate, NEW.enddate, NEW.ownercat_id, 
 		NEW.muni_id, NEW.streetaxis_id, NEW.streetaxis2_id, NEW.postcode,NEW.postnumber,NEW.postnumber2, NEW.postcomplement, NEW.postcomplement2, 
 		NEW.descript,NEW.rotation, NEW.undelete,NEW.label_x,NEW.label_y,NEW.label_rotation, NEW.expl_id, NEW.publish, 
-		NEW.the_geom);
+		NEW.the_geom,NEW.district_id);
 		
 
 		-- man addfields insert
@@ -183,7 +192,7 @@ BEGIN
 		postcomplement=NEW.postcomplement, postcomplement2=NEW.postcomplement2, streetaxis2_id=NEW.streetaxis2_id, 
 		postcode=NEW.postcode,postnumber=NEW.postnumber,postnumber2=NEW.postnumber2, descript=NEW.descript,
 		undelete=NEW.undelete, label_x=NEW.label_x, label_y=NEW.label_y, 
-		label_rotation=NEW.label_rotation, publish=NEW.publish, expl_id=NEW.expl_id
+		label_rotation=NEW.label_rotation, publish=NEW.publish, expl_id=NEW.expl_id,district_id=NEW.district_id
 		WHERE node_id = OLD.node_id;
 		
 

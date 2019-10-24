@@ -26,6 +26,11 @@ INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (4, 'system_id
 INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (5, 'system_id', 'LAMPPOST', NULL);
 INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (6, 'system_id', 'LIGHTPOINT', NULL);
 INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (7, 'system_id', 'LINE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (8, 'system_id', 'SEMAPHORE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (9, 'system_id', 'POST_SEMAPHORE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (10, 'system_id', 'REGISTER_SEMAPHORE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (11, 'system_id', 'LINE_SEMAPHORE', NULL);
+INSERT INTO sys_typevalue (id, typevalue, idval, descript) VALUES (12, 'system_id', 'CONTROLLER_SEMAPHORE', NULL);
 
 
 INSERT INTO audit_cat_param_user VALUES ('state_topocontrol', NULL, NULL, 'role_edit', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
